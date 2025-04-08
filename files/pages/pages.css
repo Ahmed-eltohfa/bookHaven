@@ -268,4 +268,10 @@
     border-radius: 6px;
 }
 
+.avliable {
+    margin-top: 4px;
+    color: #007aff;
+    text-transform: capitalize;
+}
+
 /* End Add book */
