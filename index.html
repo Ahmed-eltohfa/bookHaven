@@ -4,14 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="files/images/book-store-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="files/main.css">
     <title>Book Haven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <h1>Hello world</h1>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="files/images/book-store-logo.png" alt="Logo">
+            <span>Book Haven</span>
+        </div>
 
+        <div class="burger" id="burger">
+            <img src="files/images/burger.jpg" alt="burgerIcon" class="icon">
+        </div>
 
+        <ul class="nav-links" id="nav-links">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/files/pages/search.html">Book Search</a></li>
+            <li><a href="#">Profile</a></li>
+        </ul>
+
+        <div class="auth-buttons">
+            <button class="signup-btn"> Sign Up</button>
+            <button class="signin-btn"> Sign In</button>
+        </div>
+    </nav>
+
+    <section class="book-section">
+        <!-- Trending -->
+        <div class="trending">
+            <div class="main-heading">
+                <span class="text">Trending
+                    <span class="line"></span>
+                </span>
+            </div>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Atomic Habits</h3>
+                    <p>An easy and proven way to build good habits.</p>
+                    <p><strong>Author:</strong> James Clear</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>The Alchemist</h3>
+                    <p>A journey of self-discovery and following dreams.</p>
+                    <p><strong>Author:</strong> Paulo Coelho</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <!-- Recommended -->
+        <div class="Recommended">
+            <div class="main-heading">
+                <span class="text">Recommended
+                    <span class="line"></span>
+                </span>
+            </div>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Atomic Habits</h3>
+                    <p>An easy and proven way to build good habits.</p>
+                    <p><strong>Author:</strong> James Clear</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>The Alchemist</h3>
+                    <p>A journey of self-discovery and following dreams.</p>
+                    <p><strong>Author:</strong> Paulo Coelho</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Sapiens</h3>
+                    <p>A brief history of humankind.</p>
+                    <p><strong>Author:</strong> Yuval Noah Harari</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="./files/images/placeholder.png" alt="img">
+                    </div>
+                    <h3>Becoming</h3>
+                    <p>A deeply personal memoir by Michelle Obama.</p>
+                    <p><strong>Author:</strong> Michelle Obama</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <script src="files/main.js"></script>

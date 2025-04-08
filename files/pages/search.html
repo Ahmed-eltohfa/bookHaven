@@ -5,16 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pages.css" />
+    <link rel="stylesheet" href="../main.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="book_search">
         <!-- nav -->
-        <div class="nav">
-            <img class="logo" src="/files/images/book-store-logo.jpg">
-            <h1>Book Store</h1>
-        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="..//images/book-store-logo.png" alt="Logo">
+                <span>Book Haven</span>
+            </div>
+
+            <div class="burger" id="burger">
+                <img src="../images/burger.jpg" alt="burgerIcon" class="icon">
+            </div>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li class="active"><a href="">Book Search</a></li>
+                <li><a href="#">Profile</a></li>
+                <li class="mobile-auth">
+                    <button class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+                    <button class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                </li>
+            </ul>
+
+            <div class="auth-buttons">
+                <button class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+                <button class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            </div>
+        </nav>
 
         <!-- main -->
         <div class="main">
@@ -36,8 +58,8 @@
                     <div class="backtalk">
                         <h1>Green solider</h1>
                         <br>Available<br>
-                         Date: 1995<br> 
-                         <b>hello</b>
+                        Date: 1995<br>
+                        <b>hello</b>
                     </div>
                 </div>
             </div>
@@ -49,11 +71,11 @@
                     <div class="backtalk">
                         <h2>Green solider</h2>
                         <br>Available<br>
-                        Date: 1995<br> 
-                        <b>hello</b>             
+                        Date: 1995<br>
+                        <b>hello</b>
                     </div>
                 </div>
-                <div class="btn" ><button>more info</button></div>
+                <div class="btn"><button>more info</button></div>
             </div>
 
             <!-- Book4 -->
@@ -63,8 +85,8 @@
                     <div class="backtalk">
                         <h1>Green solider</h1>
                         <br>Available<br>
-                         Date: 1995<br> 
-                         <b>hello</b>
+                        Date: 1995<br>
+                        <b>hello</b>
                     </div>
                 </div>
             </div>
@@ -75,14 +97,15 @@
                 <div class="underface">
                     Green solider<br>
                     <br>Available<br>
-                    Date: 1995<br> 
-                    <b>hello</b>                   
+                    Date: 1995<br>
+                    <b>hello</b>
                 </div>
-                <div class="btn" ><button>more info</button></div>
+                <div class="btn"><button>more info</button></div>
             </div>
 
         </div>
     </div>
+    <script src="../main.js"></script>
 </body>
 
 </html>
