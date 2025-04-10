@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="pages.css" />
+        <link rel="stylesheet" href="../main.css">
+        <title>Document</title>
+    </head>
+    
+    <body>
+        <!-- nav -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="..//images/book-store-logo.png" alt="Logo">
+                <span>Book Haven</span>
+            </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+            <div class="burger" id="burger">
+                <img src="../images/burger.jpg" alt="burgerIcon" class="icon">
+            </div>
 
-<body>
+            <ul class="nav-links" id="nav-links">
+                <li class="active"><a href="../../index.html">Home</a></li>
+                <li><a href="">Book Search</a></li>
+                <li><a href="./profile.html">Profile</a></li>
+                <li class="mobile-auth">
+                    <button class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+                    <button class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                </li>
+            </ul>
 
+            <div class="auth-buttons">
+                <button class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+                <button class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            </div>
+        </nav>
+    <div class="container">
+        <div class="book-card">
+        <div class="book-image">
+            <img src="https://via.placeholder.com/200x300" alt="Book Cover" />
+        </div>
+        <div class="book-info">
+            <h1 class="title">Book Title</h1>
+            <p class="author">by John Doe</p>
+            <p class="genre">Genre: Fiction</p>
+            <p class="language">Language: English</p>
+            <p class="release_date">Release date: dd/mm/yy</p>
+            <p class="description">
+            Book Description
+            </p>
+            <div class="buttons">
+            <button class="btn primary">Borrow</button>
+            <button class="btn secondary">Add to Wishlist</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </body>
-
 </html>
