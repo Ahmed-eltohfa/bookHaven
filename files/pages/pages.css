@@ -701,11 +701,13 @@
 	width:70%;
 	text-align: left;
 	padding: 10px 20px;
+
+	margin-bottom: 300px;
 	
 	.adminbooklist {
 		display: flex;
 		width: 100%;
-		border-radius: 30px;
+		border-radius: 13px;
 		overflow: hidden;
 		margin-top: 10px;
 		flex-direction: column;
@@ -726,30 +728,71 @@
 			* {
 				font-size: 1em;
 				height: max-content;
+				padding-bottom: 20px;
 				/* width: max-content; */
-				border-left: #888 solid 0.1px;
+				/* border-left: #888 solid 0.1px; */
 				flex: 1.5;
 				border-radius: 5px;
 				text-align: left;
 				align-items: center;
+				object-fit: contain;
 			}
 
-			img.author {
-				padding: 40px;
+			.cover-img-wrapper {
+				height: 100%;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				img {
+					margin: 10px
+				}
+			}
+			
+			.author-img-wrapper {
+				height: 100%;
+
+				img{
+					width: 100%;
+					object-fit: contain;
+				}
 			}
 			
 			p.bookid {
 				border:hidden;
 			}
-	
+			
 			.title {
+				flex: 4;
+			}
+			
+			.author {
 				flex: 3;
 			}
-	
-			.author {
-				flex: 2;
+
+		}
+		
+		.author-img-wrapper img {
+			height: 40px;
+		}
+
+		.cover-img-wrapper img {
+			height: 80%;
+		}
+		
+		.edit-wrapper {
+
+			.edit {
+				/* margin: 0px 20px; */
+				margin-right: 10%;
+				height: 45px;
+				width: 80px;
+				text-align: center;
+				justify-content: center;
 			}
 		}
+
 		.titles {
 			background-color: #ddd;
 			height: 60px;
