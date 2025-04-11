@@ -4,17 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/book-store-favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="pages.css" />
     <link rel="stylesheet" href="../main.css">
-    <title>Document</title>
+    <title>Book Haven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <div class="book_search">
         <!-- nav -->
         <nav class="navbar">
-            <div class="logo">
-                <img src="..//images/book-store-logo.png" alt="Logo">
+            <div class="logo" onclick="gohome()">
+                <img src="../images/book-store-logo.png" alt="Logo">
                 <span>Book Haven</span>
             </div>
 
@@ -33,10 +39,51 @@
             </ul>
 
             <div class="auth-buttons">
-                <button class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
-                <button class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                <a href="../pages/signup.html" class="signup-btn"> Sign Up</a>
+                <a href="../pages/login.html" class="signin-btn"> Sign In</a>
             </div>
         </nav>
+        <!-- Filter Section -->
+        <div class="filters">
+            <!-- Top Row: Search -->
+            <div class="filter-search">
+                <label for="search">Search</label>
+                <input type="text" id="search" placeholder="Book title...">
+            </div>
+
+            <!-- Bottom Row: Dropdowns -->
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="">All</option>
+                        <option value="self-help">Self-help</option>
+                        <option value="fiction">Fiction</option>
+                        <option value="business">Business</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability">
+                        <option value="">All</option>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort">Sort By</label>
+                    <select id="sort">
+                        <option value="">Default</option>
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="latest">Latest</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
 
         <!-- main -->
         <section class="book-section">
@@ -51,7 +98,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
                 <div class="book-card">
                     <div class="book-image">
@@ -60,7 +107,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
                 <div class="book-card">
                     <div class="book-image">
@@ -69,7 +116,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
                 <div class="book-card">
                     <div class="book-image">
@@ -78,7 +125,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
                 <div class="book-card">
                     <div class="book-image">
@@ -87,7 +134,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
                 <div class="book-card">
                     <div class="book-image">
@@ -96,7 +143,7 @@
                     <h3>Atomic Habits</h3>
                     <p>An easy and proven way to build good habits.</p>
                     <p><strong>Author:</strong> James Clear</p>
-                    <a href="#" class="learn-more">Learn More</a>
+                    <a href="../pages/bookDetails.html" class="learn-more">Learn More</a>
                 </div>
             </div>
         </section>
