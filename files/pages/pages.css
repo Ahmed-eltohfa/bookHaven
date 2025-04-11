@@ -511,3 +511,178 @@ body {
 }
 
 /* End Book Details */
+
+/*Navigation Bar*/
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 32px;
+    background-color: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 28px;
+    height: 28px;
+}
+
+.logo span {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    height: 100%;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.signup-btn,
+.signin-btn {
+    border: 1px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.signin-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.signup-btn:hover {
+    background-color: #e6f0ff;
+}
+
+.signin-btn:hover {
+    background-color: #005ecb;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    padding-bottom: 3px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li.active a,
+.nav-links li a:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+
+.burger {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+    user-select: none;
+
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.admin-list {
+	margin: 0;
+	padding: 0;
+}
+
+
+.admin-page-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: left;
+}
+
+.admin-page {
+	width:70%;
+	text-align: left;
+	padding: 10px 20px;
+	
+	.adminbooklist {
+		display: flex;
+		width: 100%;
+		border-radius: 30px;
+		overflow: hidden;
+		margin-top: 10px;
+		flex-direction: column;
+		border: #aaa solid 1px;
+
+		* {
+			height: 70px;
+			display: flex;
+			flex-direction: row;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			gap: 30px;
+			padding: 10px;
+			align-items: start;
+			gap: 3px;
+
+			* {
+				font-size: 1em;
+				height: max-content;
+				/* width: max-content; */
+				border-left: #888 solid 0.1px;
+				flex: 1.5;
+				border-radius: 5px;
+				text-align: left;
+				align-items: center;
+			}
+
+			img.author {
+				padding: 40px;
+			}
+			
+			p.bookid {
+				border:hidden;
+			}
+	
+			.title {
+				flex: 3;
+			}
+	
+			.author {
+				flex: 2;
+			}
+		}
+		.titles {
+			background-color: #ddd;
+			height: 60px;
+
+
+		}
+		
+	}
+
+}
+
+/* End Nav Bar */

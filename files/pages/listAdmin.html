@@ -5,10 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<link rel="stylesheet" href="pages.css" />
 </head>
 
-<body>
+<body class="admin-list">
+
+	<nav class="navbar">
+	<div class="logo">
+		<img src="../images/book-store-logo.png" alt="Logo">
+		<span>Book Haven</span>
+	</div>
+
+	
+	<ul class="nav-links" id="nav-links">
+		<li class="active"><a href="#">Home</a></li>
+		<li><a href="/files/pages/search.html">Book Search</a></li>
+		<li><a href="/files/pages/profile.html">Profile</a></li>
+	</ul>	
+
+	<div class="burger" id="burger">
+		<img src="../images/burger.jpg" alt="burgerIcon" class="icon">
+	</div>
+
+
+	<div class="auth-buttons">
+		<button class="signup-btn"> Sign Up</button>
+		<button class="signin-btn"> Sign In</button>
+	</div>
+</nav>
+	 
+	<div class="admin-page-wrapper">
+		<div class="admin-page">
+			<h1 class="header">Admin Page</h1>
+			<div class="adminbooklist">
+				<div class="titles">
+					<p class="bookid">Book ID</p>
+					<p class="title">Title</p>
+					<p class="author">Author</p>
+					<p class="rating">Rating</p>
+					<p class="cover-img">Cover Image</p>
+					<p class="added-by">Added By</p>
+					<p class="actions">Actions</p>
+				</div>
+
+				<div class="bookinfo">
+					<p class="bookid">001</p>
+					<p class="title">The Great Gatsby</p>
+					<p class="author">F.Scott Fitzgerlad</p>
+					<p class="rating">good tbh</p>
+					<div class="cover-img">
+						<img src="../images/placeholder.png" alt="book" class="image">
+					</div>
+					<img src="../images/profile.png" alt="profile" class="">
+					<button class="edit">Edit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 </body>
-
 </html>
