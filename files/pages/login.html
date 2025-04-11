@@ -2,12 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../images/book-store-favicon-32x32.png" type="image/x-icon">
+    <title>Login</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="./pages.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=lock,mail" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 300,
+                'GRAD' 0,
+                'opsz' 24;
+            color: #757575;
+        }
+    </style>
 </head>
 
-<body>
+<body class="auth-page">
+    <div class="form-container">
+        <h1>Welcome Back</h1>
+        <p>Log in to continue borrowing books!</p>
+        <form onsubmit="checkLogin(e)">
+            <label for="email">
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+                <input id="email" type="email" placeholder="Your email address" required>
+            </label>
+            <label for="pass">
+                <span class="material-symbols-outlined">
+                    lock
+                </span>
+                <input id="pass" type="password" placeholder="Enter your password" required>
+            </label>
+            <button type="submit">Log In</button>
+            <p class="small-text">Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </form>
+    </div>
+    <script>
+        function checkLogin(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Hardcoded admin credentials
+            const adminEmail = "admin@example.com";
+            const adminPassword = "admin123";
+
+            if (email === adminEmail && password === adminPassword) {
+                alert("Welcome, Admin!");
+                // location.href = 'admin-dashboard.html'; // optional redirection
+            } else {
+                alert("Welcome, User!");
+                // location.href = 'user-dashboard.html'; // optional redirection
+            }
+        }
+    </script>
+    <script src="../main.js"></script>
 
 </body>
 

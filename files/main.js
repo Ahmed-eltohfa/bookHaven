@@ -6,4 +6,6 @@ burger.addEventListener('click', () => {
     document.body.classList.toggle('no-scroll');
 
 });
-console.log("bitch");
+const gohome = () => {
+    window.location.href = '/index.html';
+};
