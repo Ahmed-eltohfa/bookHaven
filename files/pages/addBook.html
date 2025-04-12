@@ -6,32 +6,77 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="../images/book-store-favicon-32x32.png" type="image/x-icon">
 	<link rel="stylesheet" href="pages.css" />
+	<link rel="stylesheet" href="../main.css">
 	<title>Book Haven</title>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=filter_alt" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
-	<div class="inputfield">
-		<div class="inputwin">
-			<h2 class="addbooktitle">Add a New Book</h2>
-			<hr>
-			<div class="addbook">
-				<div class="input-wrapper">
-					<span class="input-label">Book name:</span>
-					<input type="text" class="textfield" name="bookname" placeholder="Enter Book name">
-				</div>
-				<div class="input-wrapper">
-					<span class="input-label">Author name:</span>
-					<input type="text" class="textfield" name="authorname" placeholder="Enter Author name">
-				</div>
-				<div class="input-wrapper">
-					<span class="input-label">Book Tags:</span>
-					<input type="text" class="textfield" name="bookdtags" placeholder="Enter Book tags">
-				</div>
-				<a href="./listAdmin.html"><button type="submit" class="formbutton">Add Book</button></a>
-			</div>
+	<!-- nav -->
+	<nav class="navbar">
+		<div class="logo" onclick="gohome()">
+			<img src="../images/book-store-logo.png" alt="Logo">
+			<span>Book Haven</span>
 		</div>
+
+		<div class="burger" id="burger">
+			<img src="../images/burger.jpg" alt="burgerIcon" class="icon">
+		</div>
+
+		<ul class="nav-links" id="nav-links">
+			<li><a href="../../index.html">Home</a></li>
+			<li><a href="./search.html">Book Search</a></li>
+			<li><a href="./profile.html">Profile</a></li>
+			<li class="active"><a href="">Edit Books</a></li>
+		</ul>
+
+		<div class="auth-buttons">
+			<a href="../pages/signup.html" class="signup-btn"> Sign Up</a>
+			<a href="../pages/login.html" class="signin-btn"> Sign In</a>
+		</div>
+	</nav>
+
+	<!-- main -->
+	<div class="form-container">
+		<div class="libHead">
+			<h2>Create a new Book</h2>
+			<a href="./listAdmin.html">
+				<button class="btn blue">Book List</button>
+			</a>
+		</div>
+		<form id="bookForm">
+			<input type="text" placeholder="Enter book title" required />
+			<input type="text" placeholder="Enter author name" required />
+			<input type="text" placeholder="Category" required />
+			<textarea placeholder="Enter book description" required></textarea>
+
+			<div class="upload-section">
+				<label for="coverInput" class="upload-label">Choose Cover Image</label>
+				<input type="file" id="coverInput" accept="image/*" />
+				<img id="coverPreview" src="#" alt="Cover Preview" style="display: none;" />
+			</div>
+
+			<button type="submit" class="submit-btn">Add Book</button>
+		</form>
 	</div>
+
 	<script src="../main.js"></script>
+	<script>
+		const input = document.getElementById('coverInput');
+		const preview = document.getElementById('coverPreview');
+
+		input.addEventListener('change', function () {
+			const file = this.files[0];
+			if (file) {
+				preview.style.display = "block";
+				preview.src = URL.createObjectURL(file);
+			}
+		});
+	</script>
 
 </body>
 
