@@ -700,19 +700,20 @@
 .admin-page {
 	width:70%;
 	text-align: left;
-	padding: 10px 20px;
+	min-width: 900px;
+	padding: 10px 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-
+	
+	
 	margin-bottom: 300px;
 	
 	.add-book {
 		width: 200px;
 		margin-top: 30px;
 	}
-
+	
 	.adminbooklist {
 		display: flex;
 		width: 100%;
@@ -811,6 +812,136 @@
 		
 	}
 
+}
+
+/* Scroll wrapper for horizontal scrolling on mobile */
+.scroll-wrapper {
+	width: 100%;
+	overflow-x: auto;
+}
+
+/* Adminbooklist min-width to force horizontal scroll */
+.adminbooklist {
+	min-width: 800px; /* or higher based on content */
+}
+
+@media (max-width: 768px) {
+	.scroll-wrapper {
+		width: 100vw;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		box-sizing: border-box;
+		margin: 40px;
+		padding-bottom: 10px;
+		border: #888 solid 0.1px;
+		border-radius: 10px;
+	}
+	.admin-page {
+		width: 95%;
+		padding: 10px;
+	}
+
+	.adminbooklist * {
+		font-size: 0.9em;
+		gap: 5px;
+		padding: 8px;
+	}
+
+	.cover-img-wrapper img,
+	.author-img-wrapper img {
+		max-width: 60px;
+		max-height: 60px;
+		object-fit: cover;
+	}
+
+	.edit-wrapper .edit {
+		width: 60px;
+		height: 35px;
+		font-size: 0.8em;
+	}
+}
+
+.burger {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+    user-select: none;
+
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.mobile-auth {
+    display: none;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    .logo span {
+        font-size: 16px;
+    }
+
+    .signup-btn,
+    .signin-btn {
+        padding: 4px 6px;
+        border-radius: 6px;
+        font-size: 10px;
+    }
+
+    .auth-buttons {
+        gap: 6px;
+        align-items: center;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        padding: 40px 20px;
+        display: none;
+        z-index: 999;
+
+        li {
+            width: 100%;
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding: 10px 0;
+        }
+    }
+
+    .nav-links li.active a,
+    .nav-links li a:hover {
+        color: #007bff;
+        border-bottom: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+    }
+
+    .burger {
+        display: flex;
+        color: #000;
+        font-size: 24px;
+        z-index: 1000;
+        order: 1;
+    }
+
+    body.no-scroll {
+        overflow: hidden;
+    }
 }
 
 /* End Nav Bar */
