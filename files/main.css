@@ -79,7 +79,8 @@ body {
 }
 
 .signup-btn,
-.signin-btn {
+.signin-btn,
+.edit-btn {
     border: 1px solid #007bff;
     background-color: transparent;
     color: #007bff;
@@ -90,7 +91,8 @@ body {
     transition: all 0.3s ease;
 }
 
-.signin-btn {
+.signin-btn,
+.edit-btn {
     background-color: #007bff;
     color: white;
 }
@@ -99,8 +101,13 @@ body {
     background-color: #e6f0ff;
 }
 
-.signin-btn:hover {
+.signin-btn:hover,
+.edit-btn {
     background-color: #005ecb;
+}
+
+.edit-btn {
+	margin-right: 30px;
 }
 
 .burger {
@@ -401,3 +408,4 @@ body {
 #scrollTopBtn:hover {
     background-color: #0056b3;
 }
+
