@@ -225,22 +225,7 @@
     </section>
 
     <button id="scrollTopBtn" title="Go to top">↑</button>
-    <script src="files/main.js"></script>
-    <script>
-        const scrollBtn = document.getElementById("scrollTopBtn");
-
-        window.onscroll = function () {
-            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                scrollBtn.style.display = "block";
-            } else {
-                scrollBtn.style.display = "none";
-            }
-        };
-
-        scrollBtn.addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    </script>
+    <script src="files/main.js" type="module"></script>
 
 </body>
 
