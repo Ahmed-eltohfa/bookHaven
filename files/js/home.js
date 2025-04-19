@@ -21,7 +21,17 @@ booksToDisplay.forEach((book) => {
     link.href = `./files/pages/bookDetails.html?id=${book.id}`;
     link.classList.add('learn-more');
     link.innerHTML = 'Learn More';
+
+    // Avliable
+    const avalibdiv = document.createElement(`div`);
+    avalibdiv.classList.add(`avliable`);
+    if(book.isAvailable === true){
+        avalibdiv.innerHTML = `Avaliable`;
+    }else{
+        avalibdiv.innerHTML = `Not Avaliable`;
+    }
     mainDiv.appendChild(imageDiv);
+    mainDiv.appendChild(avalibdiv);
     mainDiv.appendChild(title);
     mainDiv.appendChild(description);
     mainDiv.appendChild(author);

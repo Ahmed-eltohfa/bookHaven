@@ -44,7 +44,7 @@ const books = [
         reviews: 15000,
         language: "English",
         releaseDate: "1960-07-11",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 3,
