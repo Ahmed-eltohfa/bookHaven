@@ -14,7 +14,6 @@ const gohome = () => {
 };
 document.querySelector('.logo').addEventListener('click', gohome);
 
-console.log("bitch");
 
 // Books Data
 const books = [
