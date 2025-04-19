@@ -19,6 +19,7 @@ console.log("bitch");
 // Books Data
 const books = [
     {
+        id: 1,
         name: "The Great Gatsby",
         year: 1925,
         author: "F. Scott Fitzgerald",
@@ -32,6 +33,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 2,
         name: "To Kill a Mockingbird",
         year: 1960,
         author: "Harper Lee",
@@ -45,6 +47,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 3,
         name: "1984",
         year: 1949,
         author: "George Orwell",
@@ -58,6 +61,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 4,
         name: "Pride and Prejudice",
         year: 1813,
         author: "Jane Austen",
@@ -71,6 +75,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 5,
         name: "The Catcher in the Rye",
         year: 1951,
         author: "J.D. Salinger",
@@ -84,6 +89,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 6,
         name: "The Lord of the Rings",
         year: 1954,
         author: "J.R.R. Tolkien",
@@ -97,6 +103,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 7,
         name: "Harry Potter and the Sorcerer's Stone",
         year: 1997,
         author: "J.K. Rowling",
@@ -110,6 +117,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 8,
         name: "Atomic Habits",
         year: 2018,
         author: "James Clear",
@@ -123,6 +131,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 9,
         name: "يوتوبيا",
         year: 2000,
         author: "أحمد خالد توفيق",
@@ -136,6 +145,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 10,
         name: "أرض زيكولا",
         year: 2007,
         author: "عمرو عبد الحميد",
@@ -149,6 +159,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 11,
         name: "Rich Dad Poor Dad",
         year: 1997,
         author: "Robert Kiyosaki",
@@ -162,6 +173,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 12,
         name: "Sapiens: A Brief History of Humankind",
         year: 2011,
         author: "Yuval Noah Harari",
@@ -175,6 +187,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 13,
         name: "The Alchemist",
         year: 1988,
         author: "Paulo Coelho",
@@ -188,6 +201,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 14,
         name: "The Subtle Art of Not Giving a F*ck",
         year: 2016,
         author: "Mark Manson",
@@ -201,6 +215,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 15,
         name: "Brave New World",
         year: 1932,
         author: "Aldous Huxley",
@@ -214,6 +229,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 16,
         name: "The Book Thief",
         year: 2005,
         author: "Markus Zusak",
@@ -227,6 +243,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 17,
         name: "The Road",
         year: 2006,
         author: "Cormac McCarthy",
@@ -240,6 +257,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 18,
         name: "The Kite Runner",
         year: 2003,
         author: "Khaled Hosseini",
@@ -253,6 +271,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 19,
         name: "The Power of Now",
         year: 1997,
         author: "Eckhart Tolle",
@@ -266,6 +285,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 20,
         name: "Man’s Search for Meaning",
         year: 1946,
         author: "Viktor E. Frankl",
@@ -279,6 +299,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 21,
         name: "The Silent Patient",
         year: 2019,
         author: "Alex Michaelides",
@@ -292,6 +313,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 22,
         name: "Educated",
         year: 2018,
         author: "Tara Westover",
@@ -305,6 +327,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 23,
         name: "The Four Agreements",
         year: 1997,
         author: "Don Miguel Ruiz",
@@ -318,6 +341,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 24,
         name: "Ikigai: The Japanese Secret to a Long and Happy Life",
         year: 2016,
         author: "Héctor García & Francesc Miralles",
@@ -331,6 +355,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 25,
         name: "Thinking, Fast and Slow",
         year: 2011,
         author: "Daniel Kahneman",
@@ -344,6 +369,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 26,
         name: "The 5 AM Club",
         year: 2018,
         author: "Robin Sharma",
@@ -357,6 +383,7 @@ const books = [
         isAvailable: true
     },
     {
+        id: 27,
         name: "Deep Work",
         year: 2016,
         author: "Cal Newport",
@@ -370,19 +397,7 @@ const books = [
         isAvailable: true
     },
     {
-        name: "https://m.media-amazon.com/images/I/41wXrC9eGqL._SY445_SX342_.jpg",
-        year: 2016,
-        author: "أحمد خالد توفيق",
-        genre: "خيال علمي",
-        cover: "https://m.media-amazon.com/images/I/71ZGhUZkU7L.jpg",
-        description: "رواية رمزية تستعرض مجتمعات الظلام والفساد من خلال قصة رجل يستيقظ في عالم مظلم بلا نور، في رحلة بحث عن الحقيقة والأمل.",
-        rating: 4.7,
-        reviews: 6500,
-        language: "عربي",
-        releaseDate: "2016-01-01",
-        isAvailable: true
-    },
-    {
+        id: 28,
         name: "الفيل الأزرق",
         year: 2012,
         author: "أحمد مراد",
