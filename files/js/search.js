@@ -2,6 +2,8 @@ import { books } from "../main.js";
 
 let inputsearch = document.getElementById("search");
 let inputcategory = document.getElementById("category");
+let inputavailability = document.getElementById("availability");
+let inputsort = document.getElementById("sort");
 const container = document.querySelector(".book_search .book-section .book-grid");
 
 // Function to render book cards
@@ -54,40 +56,45 @@ function renderBooks(bookArray) {
 }
 
 
-// Combined filtering function (name + category)
-function filterBooks() {
-    const nameValue = inputsearch.value.trim().toLowerCase();
-
-    const filtered = books.filter((book) => {
-        const matchesName = book.name.toLowerCase().includes(nameValue);
-        return matchesName;
-    });
-
-    renderBooks(filtered);
-}
-
-// Combined filtering function (name + category)
-function filterBooks2() {
-    const categoryValue = inputcategory.value;
-
-    const filtered = books.filter((book) => {
-        const matchesCategory = book.genre.toLowerCase === categoryValue;
-        return matchesCategory;
-    });
-
-    renderBooks(filtered);
-}
 
 // Show all books on first load
 renderBooks(books);
 
-// Filter on name input
+
+function filterBooks() {
+    const nameValue = inputsearch.value.trim().toLowerCase();
+    const categoryValue = inputcategory.value.toLowerCase();
+    const availvalue = inputavailability.value.toLowerCase();
+
+    const filtered = books.filter((book) => {
+        const matchesName = book.name.toLowerCase().includes(nameValue);
+        const matchesCategory = categoryValue === "" || book.genre.toLowerCase() === categoryValue;
+        const matchesAvail = book.isAvailable;
+
+        if(availvalue === ""){
+            return matchesName && matchesCategory;
+        }else if (availvalue === "available") {
+            return matchesName && matchesCategory && matchesAvail; 
+        }else{
+            return matchesName && matchesCategory && !matchesAvail; 
+        }
+    });
+    // Sorting
+    const sortValue = inputsort.value;
+    if (sortValue === "title") {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortValue === "author") {
+        filtered.sort((a, b) => a.author.localeCompare(b.author));
+    } else if (sortValue === "latest") {
+        filtered.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    }
+    renderBooks(filtered);
+}
+
 inputsearch.addEventListener("input", filterBooks);
-
-// Filter on category change
-inputcategory.addEventListener("change", filterBooks2);
-    
-
+inputcategory.addEventListener("change", filterBooks);
+inputavailability.addEventListener("change", filterBooks);
+inputsort.addEventListener("change", filterBooks);
 
 
 

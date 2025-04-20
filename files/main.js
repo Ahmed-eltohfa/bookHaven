@@ -211,7 +211,7 @@ const books = [
         reviews: 16000,
         language: "English",
         releaseDate: "2016-09-13",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 15,
