@@ -15,6 +15,18 @@ const gohome = () => {
 document.querySelector('.logo').addEventListener('click', gohome);
 
 
+
+const user={
+    id:5,
+    firstName: "Youssef",
+    lastName: "Elhelw",
+    profilePic:"MyProfilePicture",
+    email:"youssefelhelw@gmail.com",
+    joinedSince:new Date.now(),
+    userBooks: [],
+}
+
+
 // Books Data
 const books = [
     {
