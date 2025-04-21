@@ -15,6 +15,18 @@ const gohome = () => {
 document.querySelector('.logo').addEventListener('click', gohome);
 
 
+
+const user = {
+    id: 5,
+    firstName: "Youssef",
+    lastName: "Elhelw",
+    profilePic: "../images/profile.png",
+    email: "youssefelhelw@gmail.com",
+    joinedSince: Date.now(),
+    userBooks: [],
+}
+
+
 // Books Data
 const books = [
     {
@@ -541,4 +553,4 @@ scrollBtn.addEventListener("click", function () {
 
 
 // exports
-export { books };
+export { books, user };
