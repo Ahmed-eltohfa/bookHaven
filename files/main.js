@@ -29,7 +29,11 @@ const books = [
         reviews: 12000,
         language: "English",
         releaseDate: "1925-04-10",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 2,
@@ -43,7 +47,11 @@ const books = [
         reviews: 15000,
         language: "English",
         releaseDate: "1960-07-11",
-        isAvailable: false
+        isAvailable: false,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 3,
@@ -57,7 +65,11 @@ const books = [
         reviews: 10000,
         language: "English",
         releaseDate: "1949-06-08",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 4,
@@ -71,7 +83,11 @@ const books = [
         reviews: 9000,
         language: "English",
         releaseDate: "1813-01-28",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 5,
@@ -85,7 +101,11 @@ const books = [
         reviews: 8000,
         language: "English",
         releaseDate: "1951-07-16",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 6,
@@ -99,7 +119,11 @@ const books = [
         reviews: 20000,
         language: "English",
         releaseDate: "1954-07-29",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 7,
@@ -113,7 +137,11 @@ const books = [
         reviews: 25000,
         language: "English",
         releaseDate: "1997-06-26",
-        isAvailable: true
+        isAvailable: false,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 8,
@@ -127,7 +155,11 @@ const books = [
         reviews: 18000,
         language: "English",
         releaseDate: "2018-10-16",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 9,
@@ -141,7 +173,11 @@ const books = [
         reviews: 5000,
         language: "عربي",
         releaseDate: "2000-01-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 10,
@@ -155,7 +191,11 @@ const books = [
         reviews: 6000,
         language: "عربي",
         releaseDate: "2007-01-01",
-        isAvailable: true
+        isAvailable: false,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 11,
@@ -169,7 +209,11 @@ const books = [
         reviews: 30000,
         language: "English",
         releaseDate: "1997-04-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 12,
@@ -183,7 +227,11 @@ const books = [
         reviews: 22000,
         language: "English",
         releaseDate: "2011-06-04",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 13,
@@ -197,7 +245,11 @@ const books = [
         reviews: 27000,
         language: "English",
         releaseDate: "1988-01-01",
-        isAvailable: true
+        isAvailable: false,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 14,
@@ -211,7 +263,11 @@ const books = [
         reviews: 16000,
         language: "English",
         releaseDate: "2016-09-13",
-        isAvailable: false
+        isAvailable: false,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 15,
@@ -225,7 +281,11 @@ const books = [
         reviews: 8500,
         language: "English",
         releaseDate: "1932-01-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 16,
@@ -239,7 +299,11 @@ const books = [
         reviews: 14000,
         language: "English",
         releaseDate: "2005-03-14",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 99,
+            wishlisted: 2,
+        }
     },
     {
         id: 17,
@@ -253,7 +317,11 @@ const books = [
         reviews: 9000,
         language: "English",
         releaseDate: "2006-09-26",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 18,
@@ -267,7 +335,11 @@ const books = [
         reviews: 22000,
         language: "English",
         releaseDate: "2003-05-29",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 19,
@@ -281,7 +353,11 @@ const books = [
         reviews: 17000,
         language: "English",
         releaseDate: "1997-09-27",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 500,
+            wishlisted: 200,
+        }
     },
     {
         id: 20,
@@ -295,7 +371,11 @@ const books = [
         reviews: 20000,
         language: "English",
         releaseDate: "1946-01-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 2,
+            wishlisted: 0,
+        }
     },
     {
         id: 21,
@@ -309,7 +389,11 @@ const books = [
         reviews: 19000,
         language: "English",
         releaseDate: "2019-02-05",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 88,
+            wishlisted: 4,
+        }
     },
     {
         id: 22,
@@ -323,7 +407,11 @@ const books = [
         reviews: 23000,
         language: "English",
         releaseDate: "2018-02-18",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 66,
+            wishlisted: 5,
+        }
     },
     {
         id: 23,
@@ -337,7 +425,11 @@ const books = [
         reviews: 11000,
         language: "English",
         releaseDate: "1997-11-07",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 44,
+            wishlisted: 2,
+        }
     },
     {
         id: 24,
@@ -351,7 +443,11 @@ const books = [
         reviews: 15000,
         language: "English",
         releaseDate: "2016-09-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 33,
+            wishlisted: 1,
+        }
     },
     {
         id: 25,
@@ -365,7 +461,11 @@ const books = [
         reviews: 18000,
         language: "English",
         releaseDate: "2011-10-25",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 99,
+            wishlisted: 12,
+        }
     },
     {
         id: 26,
@@ -379,7 +479,11 @@ const books = [
         reviews: 10000,
         language: "English",
         releaseDate: "2018-12-04",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 11,
+            wishlisted: 2,
+        }
     },
     {
         id: 27,
@@ -393,7 +497,11 @@ const books = [
         reviews: 14000,
         language: "English",
         releaseDate: "2016-01-05",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 4,
+            wishlisted: 1,
+        }
     },
     {
         id: 28,
@@ -407,7 +515,11 @@ const books = [
         reviews: 8700,
         language: "عربي",
         releaseDate: "2012-10-01",
-        isAvailable: true
+        isAvailable: true,
+        history: {
+            borrowed: 5,
+            wishlisted: 2,
+        }
     }
 ];
 

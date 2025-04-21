@@ -47,7 +47,7 @@ function renderBooks(bookArray) {
         // Learn more link
         const link = document.createElement("a");
         link.classList.add("learn-more");
-        link.href = "../pages/bookDetails.html";
+        link.href = `./bookDetails.html?id=${book.id}`;
         link.innerHTML = "Learn More";
         maindiv.appendChild(link);
 
@@ -71,12 +71,12 @@ function filterBooks() {
         const matchesCategory = categoryValue === "" || book.genre.toLowerCase() === categoryValue;
         const matchesAvail = book.isAvailable;
 
-        if(availvalue === ""){
+        if (availvalue === "") {
             return matchesName && matchesCategory;
-        }else if (availvalue === "available") {
-            return matchesName && matchesCategory && matchesAvail; 
-        }else{
-            return matchesName && matchesCategory && !matchesAvail; 
+        } else if (availvalue === "available") {
+            return matchesName && matchesCategory && matchesAvail;
+        } else {
+            return matchesName && matchesCategory && !matchesAvail;
         }
     });
     // Sorting

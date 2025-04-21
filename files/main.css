@@ -107,7 +107,7 @@ body {
 }
 
 .edit-btn {
-	margin-right: 30px;
+    margin-right: 30px;
 }
 
 .burger {
@@ -216,12 +216,23 @@ body {
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px 20px;
     box-shadow: 0px 3px 10px 1px rgb(0 0 0 / 30%);
     transition: transform 0.3s ease;
-    /* height: 530px; */
-    max-width: 400px;
+    margin: 0 auto;
+    max-width: 340px;
 
+    .avliable {
+        color: #007bff;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        line-height: .7;
+    }
+
+    .not-avliable {
+        color: rgb(214, 28, 28) !important;
+    }
 }
 
 .book-card:hover {
@@ -260,7 +271,7 @@ body {
 .learn-more {
     display: inline-block;
     text-align: center;
-    margin-top: 12px;
+    margin: 12px 0;
     padding: 6px 14px;
     border: 1px solid #007bff;
     color: #007bff;
@@ -410,4 +421,3 @@ body {
 #scrollTopBtn:hover {
     background-color: #0056b3;
 }
-
