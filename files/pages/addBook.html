@@ -49,10 +49,10 @@
 			</a>
 		</div>
 		<form id="bookForm">
-			<input type="text" placeholder="Enter book title" required />
-			<input type="text" placeholder="Enter author name" required />
-			<input type="text" placeholder="Category" required />
-			<textarea placeholder="Enter book description" required></textarea>
+			<input type="text" placeholder="Enter book title" id="bookname" required / >
+			<input type="text" placeholder="Enter author name" id="authorname" required />
+			<input type="text" placeholder="Category" id="category" required />
+			<textarea placeholder="Enter book description" id="desc" required></textarea>
 
 			<div class="upload-section">
 				<label for="coverInput" class="upload-label">Choose Cover Image</label>
@@ -64,7 +64,7 @@
 		</form>
 	</div>
 	<button id="scrollTopBtn" title="Go to top">↑</button>
-	<script src="../js/admin.js" type="module"></script>
+	<script src="../js/addBook.js" type="module"></script>
 	<script src="../main.js" type="module"></script>
 
 </body>

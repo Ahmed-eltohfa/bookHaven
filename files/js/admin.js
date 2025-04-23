@@ -1,20 +1,9 @@
 import {books, user} from "../main.js"
 
-const input = document.getElementById('coverInput');
-const preview = document.getElementById('coverPreview');
 
 let inputsearch = document.getElementById("search")
 
 const container = document.querySelector(".library-table tbody")
-
-
-// input.addEventListener('change', function () {
-//     const file = this.files[0];
-//     if (file) {
-//         preview.style.display = "block";
-//         preview.src = URL.createObjectURL(file);
-//     }
-// });
 
 
 function deleteBook(index){
@@ -30,7 +19,7 @@ function createActionButtons(bookDetails) {
 
     // Create edit link and button
     const editLink = document.createElement("a");
-    editLink.href = "./addBook.html";
+    editLink.href = `./addBook.html?id=${bookDetails.id}`;
 
     const editBtn = document.createElement("button");
     editBtn.className = "btn blue";
@@ -85,7 +74,7 @@ function resetActionButtons(tdElement, bookDetails) {
     tdElement.innerHTML = "";
 
     const editLink = document.createElement("a");
-    editLink.href = "./addBook.html";
+    editLink.href = `./addBook.html?id=${bookDetails.id}`;
 
     const editBtn = document.createElement("button");
     editBtn.className = "btn blue";
