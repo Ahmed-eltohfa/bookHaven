@@ -1,4 +1,4 @@
-import {books} from "../main.js"
+import {books, storeBooks} from "../main.js"
 
 let form = document.querySelector(".form-container")
 
@@ -70,6 +70,6 @@ function addBook(){
 	else{
 		books[bookId - 1] = book
 	}
-
+	storeBooks()
 	window.location.href = "./listAdmin.html"
 }

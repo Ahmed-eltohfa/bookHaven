@@ -1,4 +1,4 @@
-import {books, user} from "../main.js"
+import {books, storeBooks, user} from "../main.js"
 
 
 let inputsearch = document.getElementById("search")
@@ -8,6 +8,7 @@ const container = document.querySelector(".library-table tbody")
 
 function deleteBook(index){
 	books.splice(index - 1,1)
+	storeBooks()
 	renderBooks(books)
 }
 
