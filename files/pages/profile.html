@@ -55,12 +55,6 @@
     <!-- Profile Section -->
     <section class="profile-section">
         <div class="profile-header">
-            <!-- <img src="../images/profile.png" alt="Profile Picture" class="profile-pic">
-            <div class="profile-info">
-                <h2>John Doe</h2>
-                <p>john.doe@example.com</p>
-                <p>Member since January 2020</p>
-            </div> -->
         </div>
 
         <div class="profile-controls">
@@ -68,82 +62,17 @@
                 <span class="material-symbols-outlined" style="user-select: none;">
                     filter_alt
                 </span>
-                <select name="" id="">
-                    <option value="Recently">Recently Borrowed</option>
-                    <option value="Overdue">Overdue</option>
-                    <option value="Returned">Returned</option>
-                    <option value="Pending">Pending</option>
+                <select name="filter" id="filter">
+                    <option value="all">All</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="returned">Returned</option>
+                    <option value="pending">Pending</option>
                 </select>
             </div>
             <input type="text" class="search-input" placeholder="Search book titles or authors 🔍" />
         </div>
 
         <div class="book-grid">
-            <!-- Card 1 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>The Great Gatsby</h3>
-                <p>Due: Oct 15</p>
-                <p>Status: Pending</p>
-                <a href="#" class="learn-more">Renew</a>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>To Kill a Mockingbird</h3>
-                <p>Due: Oct 20</p>
-                <p>Status: Returned</p>
-                <a href="#" class="learn-more">Details</a>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>1984</h3>
-                <p>Due: Oct 22</p>
-                <p>Status: Pending</p>
-                <a href="#" class="learn-more">Renew</a>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>Pride and Prejudice</h3>
-                <p>Due: Oct 18</p>
-                <p>Status: Overdue</p>
-                <a href="#" class="learn-more">Pay Fine</a>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>Moby Dick</h3>
-                <p>Due: Oct 25</p>
-                <p>Status: Pending</p>
-                <a href="#" class="learn-more">Renew</a>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <img src="../images/placeholder.png" alt="placeholder">
-                </div>
-                <h3>The Catcher in the Rye</h3>
-                <p>Due: Oct 30</p>
-                <p>Status: Pending</p>
-                <a href="#" class="learn-more">Renew</a>
-            </div>
         </div>
     </section>
     <button id="scrollTopBtn" title="Go to top">↑</button>

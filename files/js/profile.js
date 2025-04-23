@@ -1,39 +1,82 @@
-import { user } from "../main.js";
+import { user, books as allBooks } from "../main.js";
 
-// <div class="profile-header">
-// <img src="../images/profile.png" alt="Profile Picture" class="profile-pic">
-// <div class="profile-info">
-//     <h2>John Doe</h2>
-//     <p>john.doe@example.com</p>
-//     <p>Member since January 2020</p>
-// </div>
-// </div>
-
+// Profile Rendering
 const profileHeader = document.querySelector('.profile-header');
+
 const profilePic = document.createElement('img');
 profilePic.src = user.profilePic;
 profilePic.alt = 'Profile Picture';
 profilePic.classList.add('profile-pic');
+
 const profileInfo = document.createElement('div');
 profileInfo.classList.add('profile-info');
-const userName = document.createElement('h2');
-userName.innerHTML = user.firstName + ' ' + user.lastName;
-const userEmail = document.createElement('p');
-userEmail.innerHTML = user.email;
-const userMemberSince = document.createElement('p');
-const joinedSince = new Date(user.joinedSince);
-const options = { weekday: 'short', day: 'numeric', year: 'numeric' };
-const formattedDate = joinedSince.toLocaleDateString('en-US', options);
-userMemberSince.innerHTML = `Member since ${formattedDate}`;
-console.log(formattedDate)
 
-userMemberSince.innerHTML = `Member since`;
-profileInfo.appendChild(userName);
-profileInfo.appendChild(userEmail);
-profileInfo.appendChild(userMemberSince);
-profileHeader.appendChild(profilePic);
-profileHeader.appendChild(profileInfo);
-// const borrowedBooks = user.borrowedBooks;
-// const wishlistedBooks = user.wishlistedBooks;
-// const borrowedBooksContainer = document.querySelector('.borrowed-books');
-// const wishlistedBooksContainer = document.querySelector('.wishlisted-books');
+const userName = document.createElement('h2');
+userName.textContent = `${user.firstName} ${user.lastName}`;
+
+const userEmail = document.createElement('p');
+userEmail.textContent = user.email;
+
+const joinedSince = new Date(user.joinedSince);
+const formattedDate = joinedSince.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+const userMemberSince = document.createElement('p');
+userMemberSince.textContent = `Member since ${formattedDate}`;
+
+profileInfo.append(userName, userEmail, userMemberSince);
+profileHeader.append(profilePic, profileInfo);
+
+// Book Rendering
+const userBooksContainer = document.querySelector('.book-grid');
+const filterSelect = document.querySelector('#filter');
+const searchInput = document.querySelector('.search-input');
+
+// Helper: Render Books
+function renderBooks(booksData) {
+    userBooksContainer.innerHTML = ''; // clear previous cards
+
+    booksData.forEach(({ bookId, returnDate, status }) => {
+        const book = allBooks.find(b => b.id === bookId);
+        if (!book) return;
+
+        const card = document.createElement('div');
+        card.className = 'book-card';
+
+        card.innerHTML = `
+            <div class="book-image">
+                <img src="${book.cover}" alt="${book.name} cover image">
+            </div>
+            <h3>${book.name}</h3>
+            <p>Due: ${returnDate}</p>
+            <p>Status: ${status}</p>
+            <a class="learn-more" href="./bookDetails.html?id=${book.id}">
+                ${status === 'pending' ? 'Renew' : status === 'overdue' ? 'Pay Fine' : 'Details'}
+            </a>
+        `;
+
+        userBooksContainer.appendChild(card);
+    });
+}
+
+// Filtering Logic
+function filterBooks() {
+    const filterValue = filterSelect.value;
+    const searchValue = searchInput.value.toLowerCase();
+
+    const filtered = user.userBooks.filter(({ bookId, status }) => {
+        const book = allBooks.find(b => b.id === bookId);
+        if (!book) return false;
+
+        const matchesStatus = filterValue === 'all' || status === filterValue;
+        const matchesSearch = book.name.toLowerCase().includes(searchValue);
+        return matchesStatus && matchesSearch;
+    });
+
+    renderBooks(filtered);
+}
+
+// Initial Render
+renderBooks(user.userBooks);
+
+// Event Listeners
+filterSelect.addEventListener('change', filterBooks);
+searchInput.addEventListener('input', filterBooks);

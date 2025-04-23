@@ -23,7 +23,40 @@ const user = {
     profilePic: "../images/profile.png",
     email: "youssefelhelw@gmail.com",
     joinedSince: Date.now(),
-    userBooks: [],
+    isAdmin: false,
+    userBooks: [
+        {
+            bookId: 1,
+            returnDate: "2023-10-15",
+            isReturned: false,
+            status: "borrowed",
+        },
+        {
+            bookId: 2,
+            returnDate: "2023-10-20",
+            isReturned: true,
+            status: "returned"
+        },
+        {
+            bookId: 3,
+            bookName: "1984",
+            returnDate: "2023-10-25",
+            isReturned: false,
+            status: "overdue"
+        },
+        {
+            bookId: 4,
+            returnDate: "2023-10-30",
+            isReturned: false,
+            status: "borrowed"
+        },
+        {
+            bookId: 9,
+            returnDate: "2023-11-05",
+            isReturned: false,
+            status: "pending"
+        }
+    ],
 }
 
 

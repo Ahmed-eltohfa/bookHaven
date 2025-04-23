@@ -405,7 +405,7 @@
 
     .details-container {
 
-        .book-card {
+        .book-cardo {
             flex-direction: column;
             align-items: center;
         }
@@ -417,6 +417,12 @@
 
         .buttons {
             justify-content: center;
+        }
+
+        .book-imageo {
+            img {
+                height: 300px;
+            }
         }
     }
 }

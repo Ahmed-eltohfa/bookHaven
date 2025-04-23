@@ -1,4 +1,4 @@
-import { books } from "../main.js";
+import { books, user } from "../main.js";
 
 // Get the query string from the current URL
 const queryString = window.location.search;
@@ -58,7 +58,17 @@ if (book && container) {
     borrowBtn.textContent = "Borrow";
     if (!book.isAvailable) {
         borrowBtn.disabled = true;
+        borrowBtn.textContent = "Not Available";
+        borrowBtn.style.backgroundColor = "rgb(214, 28, 28)";
+        borrowBtn.style.cursor = "not-allowed";
     }
+    borrowBtn.onclick = () => {
+        borrowBook(book.id);
+        borrowBtn.disabled = true;
+        borrowBtn.textContent = "Not Available";
+        borrowBtn.style.backgroundColor = "rgb(214, 28, 28)";
+        borrowBtn.style.cursor = "not-allowed";
+    };
 
     const wishlistBtn = document.createElement("button");
     wishlistBtn.className = "btn secondary";
@@ -86,5 +96,26 @@ if (book && container) {
 // Helper: Format Date
 function formatDate(dateStr) {
     const date = new Date(dateStr);
-    return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth()+1).toString().padStart(2, "0")}/${date.getFullYear()}`;
+    return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()}`;
+}
+
+// Helper: borrow book
+function borrowBook(bookId) {
+    const book = books.find(b => b.id === bookId);
+    if (book && book.isAvailable) {
+        book.isAvailable = false;
+        alert(`You have borrowed "${book.name}".`);
+        // Update the book history
+        book.history.borrowed += 1;
+        user.userBooks.push({
+            bookId: book.id,
+            returnDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+            isReturned: false,
+            status: "borrowed",
+        });
+        console.log(user);
+
+    } else {
+        alert(`"${book.name}" is not available for borrowing.`);
+    }
 }
