@@ -18,11 +18,8 @@ const container = document.querySelector(".library-table tbody")
 
 
 function deleteBook(index){
-	let conf = confirm("Are you sure?")
-	if(conf){
-		books.splice(index - 1,1)
-		renderBooks(books)
-	}
+	books.splice(index - 1,1)
+	renderBooks(books)
 }
 
 function addBook(bookDetails) {
@@ -67,7 +64,36 @@ function addBook(bookDetails) {
 	deleteBtn.className = "btn blue";
 	deleteBtn.textContent = "Delete";
 
-	deleteBtn.addEventListener("click",function() {deleteBook(bookDetails.id)})
+	// deleteBtn.addEventListener("click",function() {deleteBook(bookDetails.id)})
+
+	deleteBtn.addEventListener("click", function () {
+		// Clear current buttons
+		actionsCell.innerHTML = "";
+	
+		// Yes button
+		const yesBtn = document.createElement("button");
+		yesBtn.className = "btn red";
+		yesBtn.textContent = "Yes";
+		yesBtn.addEventListener("click", function () {
+			deleteBook(bookDetails.id);
+		});
+	
+		// No button
+		const noBtn = document.createElement("button");
+		noBtn.className = "btn green";
+		noBtn.textContent = "No";
+		noBtn.addEventListener("click", function () {
+			// Re-add original buttons
+			actionsCell.innerHTML = "";
+			actionsCell.appendChild(editLink);
+			actionsCell.appendChild(deleteBtn);
+		});
+	
+		// Append confirmation buttons
+		actionsCell.appendChild(yesBtn);
+		actionsCell.appendChild(noBtn);
+	});
+	
 
 	editLink.appendChild(editBtn);
 	actionsCell.appendChild(editLink);
