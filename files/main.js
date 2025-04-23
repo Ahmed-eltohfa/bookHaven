@@ -16,7 +16,7 @@ document.querySelector('.logo')?.addEventListener('click', gohome);
 
 
 
-let user = {}
+let user = {};
 let users = [];
 
 
@@ -621,7 +621,9 @@ loadUser();
 loadUsers();
 
 const authButtons = document.getElementById('auth-buttons');
-
+let sign, login;
+(window.location.pathname === '/' || window.location.pathname === '/index.html') ? sign = '/files/pages/signup.html' : sign = 'signup.html';
+(window.location.pathname === '/' || window.location.pathname === '/index.html') ? login = '/files/pages/login.html' : login = 'login.html';
 if (user && authButtons) {
 	authButtons.innerHTML = `
             <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -629,14 +631,14 @@ if (user && authButtons) {
 	document.getElementById('logoutBtn')?.addEventListener('click', () => {
 		localStorage.removeItem('user');
 		authButtons ? authButtons.innerHTML = `
-				<a href="/files/pages/signup.html" class="signup-btn">Sign Up</a>
-				<a href="/files/pages/login.html" class="signin-btn">Sign In</a>
+				<a href="${sign}" class="signup-btn">Sign Up</a>
+				<a href="${login}" class="signin-btn">Sign In</a>
 			`: null;
 	});
 } else {
 	authButtons ? authButtons.innerHTML = `
-            <a href="/files/pages/signup.html" class="signup-btn">Sign Up</a>
-            <a href="/files/pages/login.html" class="signin-btn">Sign In</a>
+            <a href="${sign}" class="signup-btn">Sign Up</a>
+            <a href="${login}" class="signin-btn">Sign In</a>
         `: null;
 }
 
