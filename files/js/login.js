@@ -1,18 +1,30 @@
-function checkLogin(event) {
-    event.preventDefault(); // Prevent form from submitting
+// login.js
+import { users, loadUsers, storeUser, checkPassword } from "../main.js";
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+loadUsers();
 
-    // Hardcoded admin credentials
-    const adminEmail = "admin@example.com";
-    const adminPassword = "admin123";
+const form = document.querySelector("form");
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("pass");
 
-    if (email === adminEmail && password === adminPassword) {
-        alert("Welcome, Admin!");
-        // location.href = 'admin-dashboard.html'; // optional redirection
-    } else {
-        alert("Welcome, User!");
-        // location.href = 'user-dashboard.html'; // optional redirection
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passInput.value;
+
+    if (!email || !password) {
+        alert("Please fill in both fields.");
+        return;
     }
-}
+
+    const foundUser = users.find(user => user.email === email);
+    if (!foundUser || !(await checkPassword(password, foundUser.password))) {
+        alert("Invalid email or password.");
+        return;
+    }
+
+    storeUser(foundUser);
+    alert(`Welcome back, ${foundUser.firstName}!`);
+    window.location.href = "/index.html"; // redirect to homepage
+});

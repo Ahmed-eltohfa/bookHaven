@@ -25,8 +25,9 @@ function renderBooks(bookArray) {
 
         // Availability
         const avalibdiv = document.createElement("div");
-        avalibdiv.classList.add("avliable");
         avalibdiv.innerHTML = book.isAvailable ? "Available" : "Not Available";
+        avalibdiv.classList.add("avliable");
+        avalibdiv.classList.add(book.isAvailable ? "Available" : "not-avliable");
         maindiv.appendChild(avalibdiv);
 
         // Title

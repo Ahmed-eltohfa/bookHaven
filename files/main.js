@@ -2,21 +2,22 @@
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('nav-links');
 
-burger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
+burger?.addEventListener('click', () => {
+	navLinks.classList.toggle('active');
+	document.body.classList.toggle('no-scroll');
 
 });
 
 // return to home funciton
 const gohome = () => {
-    window.location.href = '/index.html';
+	window.location.href = '/index.html';
 };
-document.querySelector('.logo').addEventListener('click', gohome);
+document.querySelector('.logo')?.addEventListener('click', gohome);
 
 
 
 let user = {}
+let users = [];
 
 
 // Books Data
@@ -24,7 +25,7 @@ let books = []
 
 
 //test books and user, only called once to init at the start
-function LoadTestBooks(){
+function LoadTestBooks() {
 	books = [
 		{
 			id: 1,
@@ -531,9 +532,10 @@ function LoadTestBooks(){
 			}
 		}
 	];
-	
+
 }
-function LoadTestUser(){
+
+function LoadTestUser() {
 	user = {
 		id: 5,
 		firstName: "Youssef",
@@ -578,49 +580,98 @@ function LoadTestUser(){
 	}
 }
 
-function loadBooks(){
+function loadBooks() {
 	books = JSON.parse(localStorage.getItem("bookslist"))
-	if(books === null){
-		LoadTestBooks()
+	if (books === null) {
+		LoadTestBooks();
+		storeBooks();
 	}
 }
 
-function storeBooks(){
-	localStorage.setItem("bookslist",JSON.stringify(books))
+function storeBooks() {
+	localStorage.setItem("bookslist", JSON.stringify(books))
 }
 
-function loadUser(){
-	user = JSON.parse(localStorage.getItem("user"))
-	if(user === null){
-		LoadTestUser()
+function loadUser() {
+	user = JSON.parse(localStorage.getItem("user"));
+	if (user === null) {
+		// LoadTestUser();
+		// storeUser();
 	}
 }
 
-function storeUser(){
-	localStorage.setItem("user",JSON.stringify(user))
+function storeUser(userData) {
+	localStorage.setItem("user", JSON.stringify(userData));
+}
+
+function storeUsers() {
+	localStorage.setItem("userslist", JSON.stringify(users));
+}
+
+function loadUsers() {
+	users = JSON.parse(localStorage.getItem("userslist"));
+	if (users === null) {
+		users = [];
+		storeUsers();
+	}
+}
+
+loadBooks();
+loadUser();
+loadUsers();
+
+const authButtons = document.getElementById('auth-buttons');
+
+if (user && authButtons) {
+	authButtons.innerHTML = `
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        `;
+	document.getElementById('logoutBtn')?.addEventListener('click', () => {
+		localStorage.removeItem('user');
+		authButtons ? authButtons.innerHTML = `
+				<a href="/files/pages/signup.html" class="signup-btn">Sign Up</a>
+				<a href="/files/pages/login.html" class="signin-btn">Sign In</a>
+			`: null;
+	});
+} else {
+	authButtons ? authButtons.innerHTML = `
+            <a href="/files/pages/signup.html" class="signup-btn">Sign Up</a>
+            <a href="/files/pages/login.html" class="signin-btn">Sign In</a>
+        `: null;
 }
 
 
-loadBooks()
-// storeBooks()
-loadUser()
-// storeUser()
 
 // Scroll to Top Button
 const scrollBtn = document.getElementById("scrollTopBtn");
 
 window.onscroll = function () {
-    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-        scrollBtn.style.display = "block";
-    } else {
-        scrollBtn.style.display = "none";
-    }
+	if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+		scrollBtn.style.display = "block";
+	} else {
+		scrollBtn.style.display = "none";
+	}
 };
 
-scrollBtn.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+scrollBtn?.addEventListener("click", function () {
+	window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 
+export async function hashPassword(password) {
+	const encoder = new TextEncoder();
+	const data = encoder.encode(password);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+	return hashHex;
+}
+
+export async function checkPassword(plainPassword, storedHash) {
+	const hashedInput = await hashPassword(plainPassword);
+	return hashedInput === storedHash;
+}
+
+
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser};
+export { books, user, storeBooks, loadBooks, storeUser, loadUser, storeUsers, loadUsers, users };

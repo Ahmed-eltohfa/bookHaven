@@ -113,11 +113,11 @@ function borrowBook(bookId) {
             isReturned: false,
             status: "borrowed",
         });
-		storeUser()
+        storeUser(user);
         // console.log(user);
 
     } else {
         alert(`"${book.name}" is not available for borrowing.`);
     }
-	storeBooks()
+    storeBooks()
 }

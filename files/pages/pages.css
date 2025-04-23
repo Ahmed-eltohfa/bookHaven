@@ -72,6 +72,19 @@
 /* End book search */
 
 /* Add book */
+.form-container.add {
+
+    form input[type="text"],
+    form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+}
+
 .form-container {
     max-width: 500px;
     margin: 40px auto;
@@ -109,11 +122,6 @@
     form input[type="text"],
     form textarea {
         width: 100%;
-        padding: 12px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 15px;
     }
 
     form textarea {
@@ -478,6 +486,16 @@
     transition: all 0.3s ease;
 }
 
+.name-fields {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.name-fields label {
+    flex: 1;
+}
+
 .signin-btn {
     background-color: #007bff;
     color: white;
@@ -547,35 +565,42 @@
             width: 100px;
         }
     }
-	
-	.book-search {
-		width: 100%;
-		max-width: 500px;
-		padding: 12px 16px;
-		margin: 20px 0;
-		font-size: 16px;
-		border: 2px solid #d1d5db; /* Tailwind's gray-300 */
-		border-radius: 12px;
-		outline: none;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-		transition: all 0.3s ease;
-		background-color: #f9fafb; /* Light background */
-		color: #111827; /* Gray-900 for better readability */
-	  }
-	  
-	  .book-search:focus {
-		border-color: #3b82f6; /* Tailwind's blue-500 */
-		background-color: #ffffff;
-		box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-	  }
-	  .book-search:hover {
-		border-color: #9ca3af; /* Gray-400 */
-	  }
-	  .book-search::placeholder {
-		color: #9ca3af;
-	  }
-	  
-	  
+
+    .book-search {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px 16px;
+        margin: 20px 0;
+        font-size: 16px;
+        border: 2px solid #d1d5db;
+        /* Tailwind's gray-300 */
+        border-radius: 12px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        background-color: #f9fafb;
+        /* Light background */
+        color: #111827;
+        /* Gray-900 for better readability */
+    }
+
+    .book-search:focus {
+        border-color: #3b82f6;
+        /* Tailwind's blue-500 */
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    }
+
+    .book-search:hover {
+        border-color: #9ca3af;
+        /* Gray-400 */
+    }
+
+    .book-search::placeholder {
+        color: #9ca3af;
+    }
+
+
 
     .library-table {
         width: 100%;
@@ -635,33 +660,33 @@
     }
 
     .stars {
-		font-size: 18px;
-		color: gold;
-		font-family: "Segoe UI Symbol", "Arial Unicode MS", monospace;
-		font-feature-settings: "tnum";
-		display: inline-block;
-		letter-spacing: 0.05em;
-	}
-	
+        font-size: 18px;
+        color: gold;
+        font-family: "Segoe UI Symbol", "Arial Unicode MS", monospace;
+        font-feature-settings: "tnum";
+        display: inline-block;
+        letter-spacing: 0.05em;
+    }
+
 }
 
 .btn.red {
-	background-color: #ff0000;
-	color: white;
+    background-color: #ff0000;
+    color: white;
 }
 
 .btn.red:hover {
-	background-color: #c0392b;
+    background-color: #c0392b;
 }
 
 /* No button (gray) */
 .btn.green {
-	background-color: #2ece44;
-	color: white;
+    background-color: #2ece44;
+    color: white;
 }
 
 .btn.green:hover {
-	background-color: #2c993b;
+    background-color: #2c993b;
 }
 
 @media (max-width: 768px) {
