@@ -17,6 +17,14 @@ const container = document.querySelector(".library-table tbody")
 // });
 
 
+function deleteBook(index){
+	let conf = confirm("Are you sure?")
+	if(conf){
+		books.splice(index - 1,1)
+		renderBooks(books)
+	}
+}
+
 function addBook(bookDetails) {
 	const row = document.createElement("tr");
 
@@ -59,6 +67,8 @@ function addBook(bookDetails) {
 	deleteBtn.className = "btn blue";
 	deleteBtn.textContent = "Delete";
 
+	deleteBtn.addEventListener("click",function() {deleteBook(bookDetails.id)})
+
 	editLink.appendChild(editBtn);
 	actionsCell.appendChild(editLink);
 	actionsCell.appendChild(deleteBtn);
@@ -95,7 +105,10 @@ function calcStars(rating){
 function renderBooks(bookslist) {
 	container.innerHTML = ""
 
+	let id = 1
 	bookslist.forEach(element => {
+		element.id = id
+		id += 1
 		addBook(element)
 	});
 	
