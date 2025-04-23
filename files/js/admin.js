@@ -184,7 +184,7 @@ function calcStars(rating){
 	str += "★".repeat(Math.floor(rating))
 
 	if(Math.floor(rating) != rating){
-		str += "⯨"
+		str += "⯪"
 	}
 
 	str += "☆".repeat(5 - str.length)

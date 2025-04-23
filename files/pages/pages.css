@@ -635,9 +635,14 @@
     }
 
     .stars {
-        color: gold;
-        font-size: 18px;
-    }
+		font-size: 18px;
+		color: gold;
+		font-family: "Segoe UI Symbol", "Arial Unicode MS", monospace;
+		font-feature-settings: "tnum";
+		display: inline-block;
+		letter-spacing: 0.05em;
+	}
+	
 }
 
 .btn.red {
