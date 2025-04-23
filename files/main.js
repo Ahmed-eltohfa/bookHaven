@@ -23,7 +23,7 @@ const user = {
     profilePic: "../images/profile.png",
     email: "youssefelhelw@gmail.com",
     joinedSince: Date.now(),
-    isAdmin: false,
+    isAdmin: true,
     userBooks: [
         {
             bookId: 1,
