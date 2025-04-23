@@ -8,8 +8,8 @@ const container = document.querySelector(".library-table tbody")
 
 function deleteBook(index){
 	books.splice(index - 1,1)
-	storeBooks()
 	renderBooks(books)
+	storeBooks()
 }
 
 let currentConfirmation = null; // To track currently open confirmation
@@ -191,6 +191,7 @@ function renderBooks(bookslist) {
 		id += 1
 		addBook(element)
 	});
+	// storeBooks()
 	
 }
 

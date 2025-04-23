@@ -1,4 +1,4 @@
-import { books, storeUser, user } from "../main.js";
+import { books, storeBooks, storeUser, user } from "../main.js";
 
 // Get the query string from the current URL
 const queryString = window.location.search;
@@ -119,4 +119,5 @@ function borrowBook(bookId) {
     } else {
         alert(`"${book.name}" is not available for borrowing.`);
     }
+	storeBooks()
 }
