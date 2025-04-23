@@ -21,9 +21,16 @@ form.addEventListener("submit", function(evt) {
 
 input.addEventListener('change', function () {
     const file = this.files[0];
+	const reader = new FileReader()
+
+	reader.onload = function() { 
+		const base64 = reader.result
+
+		preview.src = base64
+	}
     if (file) {
         preview.style.display = "block";
-        preview.src = URL.createObjectURL(file);
+		reader.readAsDataURL(file)
     }
 });
 
