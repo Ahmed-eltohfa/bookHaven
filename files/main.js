@@ -622,8 +622,8 @@ loadUsers();
 
 const authButtons = document.getElementById('auth-buttons');
 let sign, login;
-(window.location.pathname === '/' || window.location.pathname === '/index.html') ? sign = '/files/pages/signup.html' : sign = 'signup.html';
-(window.location.pathname === '/' || window.location.pathname === '/index.html') ? login = '/files/pages/login.html' : login = 'login.html';
+(window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/webAssignment/index.html' || window.location.pathname === '/webAssignment/') ? sign = '/files/pages/signup.html' : sign = 'signup.html';
+(window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/webAssignment/index.html' || window.location.pathname === '/webAssignment/') ? login = '/files/pages/login.html' : login = 'login.html';
 if (user && authButtons) {
 	authButtons.innerHTML = `
             <button class="logout-btn" id="logoutBtn">Logout</button>
