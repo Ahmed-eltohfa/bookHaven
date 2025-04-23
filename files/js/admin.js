@@ -3,7 +3,10 @@ import {books, user} from "../main.js"
 const input = document.getElementById('coverInput');
 const preview = document.getElementById('coverPreview');
 
+let inputsearch = document.getElementById("search")
+
 const container = document.querySelector(".library-table tbody")
+
 
 // input.addEventListener('change', function () {
 //     const file = this.files[0];
@@ -64,7 +67,7 @@ function addBook(bookDetails) {
 	row.appendChild(createCell("Book ID", bookDetails.id));
 	row.appendChild(createCell("Title", bookDetails.name));
 	row.appendChild(createCell("Author", bookDetails.author));
-	row.appendChild(createCell("Rating", bookDetails.rating, "stars"));
+	row.appendChild(createCell("Rating", calcStars(bookDetails.rating), "stars"));
 	row.appendChild(createCell("Cover Image", coverImg));
 	row.appendChild(createCell("Added By", avatarImg));
 	row.appendChild(actionsCell);
@@ -75,14 +78,39 @@ function addBook(bookDetails) {
 	tbody.appendChild(row);
 }
 
+function calcStars(rating){
+	rating = Math.floor(rating * 2) / 2
+	let str = ""
 
-function renderBooks() {
+	str += "★".repeat(Math.floor(rating))
+
+	if(Math.floor(rating) != rating){
+		str += "⯨"
+	}
+
+	return str
+
+}
+
+function renderBooks(bookslist) {
 	container.innerHTML = ""
 
-	books.forEach(element => {
+	bookslist.forEach(element => {
 		addBook(element)
 	});
 	
 }
 
-renderBooks();
+function fitlerBooks(){
+	const name = inputsearch.value.trim().toLowerCase()
+
+	let filtered = books.filter((book) => {
+		return book.name.toLocaleLowerCase().includes(name)
+	})
+
+	renderBooks(filtered)
+}
+
+renderBooks(books);
+
+inputsearch.addEventListener("input",fitlerBooks)
