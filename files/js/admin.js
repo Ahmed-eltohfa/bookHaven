@@ -22,6 +22,117 @@ function deleteBook(index){
 	renderBooks(books)
 }
 
+let currentConfirmation = null; // To track currently open confirmation
+
+function createActionButtons(bookDetails) {
+    const actionsTd = document.createElement("td");
+    actionsTd.setAttribute("data-label", "Actions");
+
+    // Create edit link and button
+    const editLink = document.createElement("a");
+    editLink.href = "./addBook.html";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "btn blue";
+    editBtn.textContent = "Edit";
+
+    editLink.appendChild(editBtn);
+
+    // Create delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn blue";
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", function () {
+        // If there's an existing confirmation open, reset it
+        if (currentConfirmation && currentConfirmation !== actionsTd) {
+            resetActionButtons(currentConfirmation,bookDetails);
+        }
+
+        // Replace with confirmation buttons
+        actionsTd.innerHTML = "";
+
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "btn red";
+        yesBtn.textContent = "Yes";
+        yesBtn.addEventListener("click", function () {
+            deleteBook(bookDetails.id);
+        });
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn green";
+        noBtn.textContent = "No";
+        noBtn.addEventListener("click", function () {
+            resetActionButtons(actionsTd,bookDetails);
+        });
+
+        actionsTd.appendChild(yesBtn);
+        actionsTd.appendChild(noBtn);
+
+        // Update the currently open confirmation
+        currentConfirmation = actionsTd;
+    });
+
+    // Append original buttons
+    actionsTd.appendChild(editLink);
+    actionsTd.appendChild(deleteBtn);
+
+    return actionsTd;
+}
+
+// Helper function to restore buttons
+function resetActionButtons(tdElement, bookDetails) {
+    tdElement.innerHTML = "";
+
+    const editLink = document.createElement("a");
+    editLink.href = "./addBook.html";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "btn blue";
+    editBtn.textContent = "Edit";
+    editLink.appendChild(editBtn);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn blue";
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", function () {
+        if (currentConfirmation && currentConfirmation !== tdElement) {
+            resetActionButtons(currentConfirmation, currentConfirmation.bookDetails);
+        }
+
+        tdElement.innerHTML = "";
+
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "btn red";
+        yesBtn.textContent = "Yes";
+        yesBtn.addEventListener("click", function () {
+            deleteBook(bookDetails.id);
+        });
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn gray";
+        noBtn.textContent = "No";
+        noBtn.addEventListener("click", function () {
+            resetActionButtons(tdElement, bookDetails);
+        });
+
+        tdElement.appendChild(yesBtn);
+        tdElement.appendChild(noBtn);
+
+        currentConfirmation = tdElement;
+        currentConfirmation.bookDetails = bookDetails; // Store bookDetails on the element
+    });
+
+    tdElement.appendChild(editLink);
+    tdElement.appendChild(deleteBtn);
+
+    if (currentConfirmation === tdElement) {
+        currentConfirmation = null;
+    }
+}
+
+
 function addBook(bookDetails) {
 	const row = document.createElement("tr");
 
@@ -49,56 +160,7 @@ function addBook(bookDetails) {
 	avatarImg.src = "../images/profile.png";
 	avatarImg.classList.add("user-avatar");
 
-	// Create actions cell with buttons
-	const actionsCell = document.createElement("td");
-	actionsCell.setAttribute("data-label", "Actions");
-
-	const editLink = document.createElement("a");
-	editLink.href = "./addBook.html";
-
-	const editBtn = document.createElement("button");
-	editBtn.className = "btn blue";
-	editBtn.textContent = "Edit";
-
-	const deleteBtn = document.createElement("button");
-	deleteBtn.className = "btn blue";
-	deleteBtn.textContent = "Delete";
-
-	// deleteBtn.addEventListener("click",function() {deleteBook(bookDetails.id)})
-
-	deleteBtn.addEventListener("click", function () {
-		// Clear current buttons
-		actionsCell.innerHTML = "";
 	
-		// Yes button
-		const yesBtn = document.createElement("button");
-		yesBtn.className = "btn red";
-		yesBtn.textContent = "Yes";
-		yesBtn.addEventListener("click", function () {
-			deleteBook(bookDetails.id);
-		});
-	
-		// No button
-		const noBtn = document.createElement("button");
-		noBtn.className = "btn green";
-		noBtn.textContent = "No";
-		noBtn.addEventListener("click", function () {
-			// Re-add original buttons
-			actionsCell.innerHTML = "";
-			actionsCell.appendChild(editLink);
-			actionsCell.appendChild(deleteBtn);
-		});
-	
-		// Append confirmation buttons
-		actionsCell.appendChild(yesBtn);
-		actionsCell.appendChild(noBtn);
-	});
-	
-
-	editLink.appendChild(editBtn);
-	actionsCell.appendChild(editLink);
-	actionsCell.appendChild(deleteBtn);
-
 	// Append all cells to the row
 	row.appendChild(createCell("Book ID", bookDetails.id));
 	row.appendChild(createCell("Title", bookDetails.name));
@@ -106,7 +168,8 @@ function addBook(bookDetails) {
 	row.appendChild(createCell("Rating", calcStars(bookDetails.rating), "stars"));
 	row.appendChild(createCell("Cover Image", coverImg));
 	row.appendChild(createCell("Added By", avatarImg));
-	row.appendChild(actionsCell);
+	row.appendChild(createActionButtons(bookDetails))
+	// row.appendChild(actionsCell);
 
 	// Append the row to the table body
 	const table = document.querySelector('.library-table');
@@ -124,6 +187,7 @@ function calcStars(rating){
 		str += "⯨"
 	}
 
+	str += "☆".repeat(5 - str.length)
 	return str
 
 }
