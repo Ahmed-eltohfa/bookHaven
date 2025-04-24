@@ -86,3 +86,12 @@ recommendedBooks.forEach((book) => {
 
     container.appendChild(mainDiv);
 });
+
+
+const authButtons = document.getElementById('auth-buttons');
+console.log(authButtons);
+
+const signupbtn = document.querySelector('.signup-btn');
+const signinbtn = document.querySelector('.signin-btn');
+signinbtn.href = "./files/pages/login.html";
+signupbtn.href = "./files/pages/signup.html";

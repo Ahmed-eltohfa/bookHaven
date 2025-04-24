@@ -98,6 +98,16 @@ inputavailability.addEventListener("change", filterBooks);
 inputsort.addEventListener("change", filterBooks);
 
 
+const authButtons = document.getElementById('auth-buttons');
+console.log(authButtons);
+
+const signupbtn = document.querySelector('a.signup-btn');
+const signinbtn = document.querySelector('a.signin-btn');
+signinbtn.href = "/files/pages/login.html";
+signupbtn.href = "/files/pages/signup.html";
+console.log(signinbtn);
+console.log(signupbtn);
+
 
 
 
