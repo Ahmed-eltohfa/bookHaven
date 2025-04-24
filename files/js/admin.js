@@ -17,9 +17,16 @@ function deleteBook(bookId) {
     const index = books.findIndex(b => b.id === bookId);
     if (index !== -1) {
         books.splice(index, 1);
+		let id = 1;
+		books.forEach(book => {
+			book.id = id;
+			id += 1;
+		});
+
         storeBooks();
         renderBooks(books);
     }
+	
 }
 
 function createActionButtons(bookDetails) {
@@ -124,17 +131,17 @@ function calcStars(rating) {
 
 function renderBooks(bookList) {
     container.innerHTML = "";
-    let id = 1;
-    bookList.forEach(book => {
-        book.id = id++;
+	let fbooks = filterBooks(bookList)
+    fbooks.forEach(book => {
         addBook(book);
     });
+	
 }
 
-function filterBooks() {
+function filterBooks(list) {
     const name = inputSearch.value.trim().toLowerCase();
-    const filtered = books.filter(book => book.name.toLowerCase().includes(name));
-    renderBooks(filtered);
+    let filtered = list.filter(book => book.name.toLowerCase().includes(name));
+	return filtered
 }
 
 if (!user || !user.isAdmin) {
@@ -143,4 +150,4 @@ if (!user || !user.isAdmin) {
 } else {
     renderBooks(books);
 }
-inputSearch.addEventListener("input", filterBooks);
+inputSearch.addEventListener("input", function() {renderBooks(books)});

@@ -36,20 +36,21 @@ input.addEventListener('change', function () {
 
 
 if(bookId){
-	nametext.value=bookId
-	let book = books[bookId - 1]
+	bookId = parseInt(bookId);
+	nametext.value = bookId;
+	let book = books[bookId - 1];
 
-	nametext.value = book.name
-	authortext.value = book.author
-	categorytext.value = book.genre
-	desc.value = book.description
+	nametext.value = book.name;
+	authortext.value = book.author;
+	categorytext.value = book.genre;
+	desc.value = book.description;
 
 	
 	preview.style.display = "block";
 	preview.src = book.cover;
 }
 else{
-	bookId = books.length + 1
+	bookId = books.length + 1;
 }
 
 
