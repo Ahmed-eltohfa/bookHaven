@@ -1,4 +1,4 @@
-import { books } from "../main.js";
+import { user, books } from "../main.js";
 
 const booksToDisplay = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
 const recommendedBooks = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
@@ -88,10 +88,28 @@ recommendedBooks.forEach((book) => {
 });
 
 
-const authButtons = document.getElementById('auth-buttons');
-console.log(authButtons);
+// const authButtons = document.getElementById('auth-buttons');
+// console.log(authButtons);
 
-const signupbtn = document.querySelector('.signup-btn');
-const signinbtn = document.querySelector('.signin-btn');
-signinbtn.href = "./files/pages/login.html";
-signupbtn.href = "./files/pages/signup.html";
+// const signupbtn = document.querySelector('.signup-btn');
+// const signinbtn = document.querySelector('.signin-btn');
+// signinbtn.href = "./files/pages/login.html";
+// signupbtn.href = "./files/pages/signup.html";
+
+const authButtons = document.getElementById('auth-buttons');
+// console.log(authButtons);
+if (user && authButtons) {
+	authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
+	document.getElementById('logoutBtn')?.addEventListener('click', () => {
+		localStorage.removeItem('user');
+		authButtons ? authButtons.innerHTML = `
+				<a href="./files/pages/signup.html" class="signup-btn">Sign Up</a>
+				<a href="./files/pages/login.html" class="signin-btn">Sign In</a>
+			`: null;
+	});
+} else {
+	authButtons ? authButtons.innerHTML = `
+            <a href="./files/pages/signup.html" class="signup-btn">Sign Up</a>
+            <a href="./files/pages/login.html" class="signin-btn">Sign In</a>
+        `: null;
+}
