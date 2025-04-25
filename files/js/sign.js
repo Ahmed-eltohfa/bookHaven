@@ -37,7 +37,7 @@ form.addEventListener("submit", async (e) => {
     if (existingUser) {
         alert("User with this email already exists.");
         // Redirect to login page
-        window.location.href = "/files/pages/login.html";
+        window.location.href = "./login.html";
         return;
     }
 
@@ -68,6 +68,6 @@ form.addEventListener("submit", async (e) => {
     passInput.value = "";
     confirmInput.value = "";
     roleSelect.value = "user";
-    window.location.href = "/index.html";
+    window.location.href = "../../index.html";
 
 });

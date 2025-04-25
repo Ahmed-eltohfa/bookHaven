@@ -1,4 +1,4 @@
-import { books } from "../main.js";
+import { user, books } from "../main.js";
 
 let inputsearch = document.getElementById("search");
 let inputcategory = document.getElementById("category");
@@ -98,11 +98,30 @@ inputavailability.addEventListener("change", filterBooks);
 inputsort.addEventListener("change", filterBooks);
 
 
-const signup = document.querySelector('a.signup-btn');
-const login = document.querySelector('a.signin-btn');
 
-signup.href = 'signup.html';
-login.href = 'login.html';
+// const signupbtn = document.querySelector('a.signup-btn');
+// const signinbtn = document.querySelector('a.signin-btn');
+// signinbtn.href = "../pages/login.html";
+// signupbtn.href = "../pages/signup.html";
+
+
+const authButtons = document.getElementById('auth-buttons');
+console.log(authButtons);
+if (user && authButtons) {
+    authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        authButtons ? authButtons.innerHTML = `
+				<a href="../pages/signup.html" class="signup-btn">Sign Up</a>
+				<a href="../pages/login.html" class="signin-btn">Sign In</a>
+			`: null;
+    });
+} else {
+    authButtons ? authButtons.innerHTML = `
+            <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
+            <a href="../pages/login.html" class="signin-btn">Sign In</a>
+        `: null;
+}
 
 
 

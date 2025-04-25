@@ -10,9 +10,9 @@ burger?.addEventListener('click', () => {
 
 // return to home funciton
 const gohome = () => {
-	window.location.href = '/index.html';
+	window.location.href = './index.html';
 };
-document.querySelector('.logo')?.addEventListener('click', gohome);
+// document.querySelector('.logo')?.addEventListener('click', gohome);
 
 
 
@@ -620,25 +620,26 @@ loadBooks();
 loadUser();
 loadUsers();
 
-const authButtons = document.getElementById('auth-buttons');
-
-if (user && authButtons) {
-	authButtons.innerHTML = `
-            <button class="logout-btn" id="logoutBtn">Logout</button>
-        `;
-	document.getElementById('logoutBtn')?.addEventListener('click', () => {
-		localStorage.removeItem('user');
-		authButtons ? authButtons.innerHTML = `
-				<a href="" class="signup-btn">Sign Up</a>
-				<a href="" class="signin-btn">Sign In</a>
-			`: null;
-	});
-} else {
-	authButtons ? authButtons.innerHTML = `
-            <a href="" class="signup-btn">Sign Up</a>
-            <a href="" class="signin-btn">Sign In</a>
-        `: null;
-}
+// const authButtons = document.getElementById('auth-buttons');
+// if (user && authButtons) {
+// 	authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
+// 	// const btn = document.getElementById('logoutBtn');
+// 	// btn.onclick(()=>{
+// 	// 	window.location= "/";
+// 	// })
+// 	document.getElementById('logoutBtn')?.addEventListener('click', () => {
+// 		localStorage.removeItem('user');
+// 		authButtons ? authButtons.innerHTML = `
+// 				<a href="" class="signup-btn">Sign Up</a>
+// 				<a href="" class="signin-btn">Sign In</a>
+// 			`: null;
+// 	});
+// } else {
+// 	authButtons ? authButtons.innerHTML = `
+//             <a href="" class="signup-btn">Sign Up</a>
+//             <a href="" class="signin-btn">Sign In</a>
+//         `: null;
+// }
 
 
 
