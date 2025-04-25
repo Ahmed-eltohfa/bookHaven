@@ -68,6 +68,6 @@ form.addEventListener("submit", async (e) => {
     passInput.value = "";
     confirmInput.value = "";
     roleSelect.value = "user";
-    window.location.href = "/index.html";
+    window.location.href = "../../index.html";
 
 });

@@ -26,5 +26,5 @@ form.addEventListener("submit", async (e) => {
 
     storeUser(foundUser);
     alert(`Welcome back, ${foundUser.firstName}!`);
-    window.location.href = "/index.html"; // redirect to homepage
+    window.location.href = "../../index.html"; // redirect to homepage
 });
