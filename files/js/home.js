@@ -86,3 +86,9 @@ recommendedBooks.forEach((book) => {
 
     container.appendChild(mainDiv);
 });
+
+const signup = document.querySelector('a.signup-btn');
+const login = document.querySelector('a.signin-btn');
+
+signup.href = './files/pages/signup.html';
+login.href = './files/pages/login.html';

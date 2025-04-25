@@ -98,7 +98,11 @@ inputavailability.addEventListener("change", filterBooks);
 inputsort.addEventListener("change", filterBooks);
 
 
+const signup = document.querySelector('a.signup-btn');
+const login = document.querySelector('a.signin-btn');
 
+signup.href = 'signup.html';
+login.href = 'login.html';
 
 
 

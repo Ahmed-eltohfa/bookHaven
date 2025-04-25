@@ -622,9 +622,6 @@ loadUsers();
 
 const authButtons = document.getElementById('auth-buttons');
 
-const basePath = `${location.origin}/`;
-const sign = basePath + 'files/pages/signup.html';
-const login = basePath + 'files/pages/login.html';
 if (user && authButtons) {
 	authButtons.innerHTML = `
             <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -632,14 +629,14 @@ if (user && authButtons) {
 	document.getElementById('logoutBtn')?.addEventListener('click', () => {
 		localStorage.removeItem('user');
 		authButtons ? authButtons.innerHTML = `
-				<a href="${sign}" class="signup-btn">Sign Up</a>
-				<a href="${login}" class="signin-btn">Sign In</a>
+				<a href="" class="signup-btn">Sign Up</a>
+				<a href="" class="signin-btn">Sign In</a>
 			`: null;
 	});
 } else {
 	authButtons ? authButtons.innerHTML = `
-            <a href="${sign}" class="signup-btn">Sign Up</a>
-            <a href="${login}" class="signin-btn">Sign In</a>
+            <a href="" class="signup-btn">Sign Up</a>
+            <a href="" class="signin-btn">Sign In</a>
         `: null;
 }
 
