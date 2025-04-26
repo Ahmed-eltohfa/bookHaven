@@ -26,8 +26,7 @@ function renderBooks(bookArray) {
         // Availability
         const avalibdiv = document.createElement("div");
         avalibdiv.innerHTML = book.isAvailable ? "Available" : "Not Available";
-        avalibdiv.classList.add("avliable");
-        avalibdiv.classList.add(book.isAvailable ? "Available" : "not-avliable");
+        avalibdiv.classList.add(book.isAvailable ? "avaliable" : "not-avaliable");
         maindiv.appendChild(avalibdiv);
 
         // Title
@@ -99,10 +98,7 @@ inputsort.addEventListener("change", filterBooks);
 
 
 
-// const signupbtn = document.querySelector('a.signup-btn');
-// const signinbtn = document.querySelector('a.signin-btn');
-// signinbtn.href = "../pages/login.html";
-// signupbtn.href = "../pages/signup.html";
+
 
 
 const authButtons = document.getElementById('auth-buttons');

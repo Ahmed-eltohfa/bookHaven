@@ -254,7 +254,7 @@ body {
     max-width: 340px;
     margin: 0 auto;
 
-    .avliable {
+    .avaliable {
         color: #007bff;
         font-weight: 600;
         font-size: 14px;
@@ -262,7 +262,7 @@ body {
         line-height: .7;
     }
 
-    .not-avliable {
+    .not-avaliable {
         color: rgb(214, 28, 28) !important;
     }
 }
