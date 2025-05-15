@@ -67,7 +67,7 @@ function filterBooks() {
     const availvalue = inputavailability.value.toLowerCase();
 
     const filtered = books.filter((book) => {
-        const matchesName = book.name.toLowerCase().includes(nameValue);
+        const matchesName = book.name.toLowerCase().includes(nameValue) || book.author.toLowerCase().includes(nameValue);
         const matchesCategory = categoryValue === "" || book.genre.toLowerCase() === categoryValue;
         const matchesAvail = book.isAvailable;
 
