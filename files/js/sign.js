@@ -27,7 +27,15 @@ form.addEventListener("submit", async (e) => {
         alert("Please fill in all fields.");
         return;
     }
-
+    if(password.length < 8 || password.length > 20 ) {
+        alert("Password must be between 8 and 20 characters ");
+        return;
+    }
+    if(password.length < 8 || password.length > 20 || !password.includes("#")) {
+        alert("Password must contain '#' character.");
+        return;
+    }
+    
     if (password !== confirmPassword) {
         alert("Passwords do not match.");
         return;
