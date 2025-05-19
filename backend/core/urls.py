@@ -18,4 +18,8 @@ urlpatterns = [
     path('addBook/<int:book_id>/', views.addBook, name='addBook'),
     path('bookDetails/<int:book_id>/', views.bookDetails, name='bookDetails'),
     path('listAdmin', views.listAdmin, name='listAdmin'),
+    path('api/books/', views.get_books, name='get_books'),
+    path('api/books/add', views.add_book, name='add_book'),
+    path('api/books/delete', views.delete_book, name='delete_book'),
+    path('api/books/update', views.update_book, name='update_book'),
 ]

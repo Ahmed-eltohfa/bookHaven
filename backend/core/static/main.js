@@ -534,6 +534,46 @@ function LoadTestBooks() {
 	];
 
 }
+let fetchBooks = async function() {
+    try {
+        const response = await fetch('/api/books/');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        const bookData = JSON.parse(data.books);
+        
+        console.log('Fetched books:', bookData);
+		books = bookData.map(book => ({
+			id: book.pk,
+			name: book.fields.name,
+			year: book.fields.year,
+			author: book.fields.author,
+			genre: book.fields.genre,
+			cover: book.fields.cover,
+			description: book.fields.description,
+			rating: book.fields.rating,
+			reviews: book.fields.reviews,
+			history: book.fields.history,
+			releaseDate: book.fields.release_date,
+			isAvailable: book.fields.is_available,
+			language: book.fields.language,
+		}));
+		books.sort((a, b) => a.id - b.id);
+		console.log('Processed books:', books);
+
+		
+        
+    } catch (error) {
+        console.error('Failed to fetch books:', error);
+        // Optional: Show error to user
+        document.getElementById('books-container').innerHTML = `
+            <p class="error">Failed to load books. Please try again.</p>
+        `;
+    }
+};
 
 function LoadTestUser() {
 	user = {
@@ -580,12 +620,13 @@ function LoadTestUser() {
 	}
 }
 
-function loadBooks() {
+async function loadBooks() {
 	books = JSON.parse(localStorage.getItem("bookslist"))
 	if (books === null) {
-		LoadTestBooks();
-		storeBooks();
+		await fetchBooks();
+		// LoadTestBooks();
 	}
+	storeBooks();
 }
 
 function storeBooks() {
@@ -620,26 +661,6 @@ loadBooks();
 loadUser();
 loadUsers();
 
-// const authButtons = document.getElementById('auth-buttons');
-// if (user && authButtons) {
-// 	authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
-// 	// const btn = document.getElementById('logoutBtn');
-// 	// btn.onclick(()=>{
-// 	// 	window.location= "/";
-// 	// })
-// 	document.getElementById('logoutBtn')?.addEventListener('click', () => {
-// 		localStorage.removeItem('user');
-// 		authButtons ? authButtons.innerHTML = `
-// 				<a href="" class="signup-btn">Sign Up</a>
-// 				<a href="" class="signin-btn">Sign In</a>
-// 			`: null;
-// 	});
-// } else {
-// 	authButtons ? authButtons.innerHTML = `
-//             <a href="" class="signup-btn">Sign Up</a>
-//             <a href="" class="signin-btn">Sign In</a>
-//         `: null;
-// }
 
 
 
@@ -675,4 +696,4 @@ export async function checkPassword(plainPassword, storedHash) {
 
 
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser, storeUsers, loadUsers, users };
+export { books, user, storeBooks, loadBooks, storeUser, loadUser, storeUsers, loadUsers, users,fetchBooks };

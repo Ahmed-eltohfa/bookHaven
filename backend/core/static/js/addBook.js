@@ -1,4 +1,4 @@
-import { user, books, storeBooks } from "../main.js"
+import { user, books, storeBooks, fetchBooks } from "../main.js"
 
 let form = document.querySelector(".form-container")
 
@@ -74,17 +74,23 @@ function addBook() {
 
     if (bookId == books.length + 1) {
         books.push(book);
+        // const response = await fetch('/api/books/add',{
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(book)
+        // });
     }
     else {
         books[bookId - 1] = book;
     }
+    fetchBooks();
+    // add_book(book);
     storeBooks();
     window.location.href = "../../listAdmin";
 }
-// const signupbtn = document.querySelector('a.signup-btn');
-// const signinbtn = document.querySelector('a.signin-btn');
-// signinbtn.href = "../pages/login.html";
-// signupbtn.href = "../pages/signup.html";
+
 const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
