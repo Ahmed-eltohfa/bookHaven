@@ -33,6 +33,8 @@ def get_books(request):
     data = serializers.serialize('json', books)
     return JsonResponse({'books': data}, safe=False)
 
+
+
 @csrf_exempt 
 def add_book(request):
     if request.method == 'POST':
@@ -85,6 +87,34 @@ def delete_book(request, book_id):
             return JsonResponse({'status': 'error', 'message': 'Book not found'}, status=404)
     return JsonResponse({'status': 'error'}, status=400)
 
+@csrf_exempt
+def update_book(request, book_id):
+    if request.method == 'PUT':
+        try:
+            data = json.loads(request.body)
+            book = get_object_or_404(Book, id=book_id)
+
+            # Update book fields
+            book.name = data.get('name', book.name)
+            book.author = data.get('author', book.author)
+            book.year = int(data.get('year', book.year))
+            book.genre = data.get('genre', book.genre)
+            book.cover = data.get('cover', book.cover)
+            book.description = data.get('description', book.description)
+            book.rating = float(data.get('rating', book.rating))
+            book.reviews = int(data.get('reviews', book.reviews))
+            book.language = data.get('language', book.language)
+            book.release_date = data.get('release_date', book.release_date)
+            book.is_available = data.get('is_available', book.is_available)
+
+            # Save the updated book
+            book.save()
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error'}, status=400)
 
 
 #-------Youssef-------

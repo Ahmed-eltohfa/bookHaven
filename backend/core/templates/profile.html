@@ -81,28 +81,7 @@
     <script src="{% static 'main.js' %}" type="module"></script>
     <script src="{% static 'js/profile.js' %}" type="module"></script>
     <script>
-    fetch("/profile/")
-        .then(response => response.json())
-        .then(data => {
-            const box = document.getElementById("reader-info");
-
-            if (data.status === "error") {
-                box.innerHTML = `<p style="color:red;">❌ ${data.message}</p>`;
-            } else {
-                box.innerHTML = `
-                    <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
-                    <p><strong>Email:</strong> ${data.email}</p>
-                    <p><strong>Joined:</strong> ${data.joined_date}</p>
-                    <p><strong>Role:</strong> ${data.is_admin ? 'Admin' : 'User'}</p>
-                    <img src="${data.profile_pic}" alt="Profile Picture" style="max-height: 120px; border-radius: 50%; margin-top: 10px;">
-                `;
-            }
-        })
-        .catch(error => {
-            document.getElementById("reader-info").innerHTML = "❌ Could not load profile.";
-            console.error(error);
-        });
-</script>
+    </script>
 
 
 </body>

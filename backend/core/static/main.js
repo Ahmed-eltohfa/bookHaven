@@ -546,7 +546,7 @@ let fetchBooks = async function () {
 		const data = await response.json();
 		const bookData = JSON.parse(data.books);
 
-		console.log('Fetched books:', bookData);
+		// console.log('Fetched books:', bookData);
 		books = bookData.map(book => ({
 			id: book.pk,
 			name: book.fields.name,
@@ -564,7 +564,7 @@ let fetchBooks = async function () {
 		}));
 		books.sort((a, b) => a.id - b.id);
 		storeBooks();
-		console.log('Processed books:', books);
+		// console.log('Processed books:', books);
 
 
 
