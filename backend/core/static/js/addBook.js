@@ -71,52 +71,34 @@ async function addBook() {
     }
 
     // Validation (using correct variable name)
-    if (!book.name || !book.author || !book.genre || !book.description) {
-        alert('Please fill in all required fields');
-        return;
-    }
+    // if (!book.name || !book.author || !book.genre || !book.description) {
+    //     alert('Please fill in all required fields');
+    //     return;
+    // }
 
     try {
-        const response = await fetch('/api/books/add/', {  // Added trailing slash
+        const response = await fetch('/api/books/add/', {  
             method: 'POST',
-            headers: {
+            headers: { // convert the data i send to json string
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
             },
             body: JSON.stringify(book)
         });
 
         const data = await response.json();
         
-        if (!response.ok) {
-            throw new Error(data.message || 'Failed to save book');
-        }
-        
-
-        if (data.status === 'success') {
-            
+        if (response.ok && data.status === 'success') {
             await fetchBooks();
-
             storeBooks();
-
             window.location.href = "/listAdmin";
-        }else {
-            alert('Error adding book: ' + data.message);
+        } else {
+            alert('Error: ' + (data.message || 'Unknown error'));
         }
     } catch (error) {
-        console.error('Error:', error);
         alert('An error occurred while adding the book: ' + error.message);
     }
 }
 
-// CSRF token helper function
-function getCookie(name) {
-    const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith(`${name}=`))
-        ?.split('=')[1];
-    return cookieValue ? decodeURIComponent(cookieValue) : null;
-}
 
 
 
