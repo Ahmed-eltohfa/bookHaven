@@ -35,7 +35,7 @@ def get_books(request):
 
 
 
- 
+@csrf_exempt 
 def add_book(request):
     if request.method == 'POST':
         try:
