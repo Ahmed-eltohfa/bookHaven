@@ -28,10 +28,10 @@ let currentConfirmation = null;
 // }
 async function deleteBook(bookId) {
     try {
-        const response = await fetch(`/api/books/${bookId}/`, { 
-            method: "DELETE" 
+        const response = await fetch(`/api/books/${bookId}/`, {
+            method: "DELETE"
         });
-        
+
 
         const data = await response.json();
         if (response.ok && data.status === 'success') {
@@ -44,7 +44,7 @@ async function deleteBook(bookId) {
     }
     catch (error) {
         console.error("Error deleting book:", error);
-        alert("An error occurred while deleting the book.");
+        // alert("An error occurred while deleting the book.");
         return;
     }
 

@@ -33,16 +33,13 @@ def get_books(request):
     data = serializers.serialize('json', books)
     return JsonResponse({'books': data}, safe=False)
 
-
-
- 
+@csrf_exempt 
 def add_book(request):
     if request.method == 'POST':
         try:
             # Parse JSON data from request body
             data = json.loads(request.body)
-            
-            # Create the book 
+
             book = Book.objects.create(
                 name=data['name'],
                 author=data['author'],
@@ -62,7 +59,7 @@ def add_book(request):
                 'status': 'success', 
                 'book_id': book.id
             })
-            
+
         except json.JSONDecodeError:
             return JsonResponse(
                 {'status': 'error', 'message': 'Invalid JSON data'}, 
@@ -73,8 +70,9 @@ def add_book(request):
                 {'status': 'error', 'message': str(e)}, 
                 status=500
             )
-    
+
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
 
 @csrf_exempt
 def delete_book(request, book_id):
@@ -152,17 +150,17 @@ def login(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 
-def profile(request):
-    reader_id = request.session.get('reader_id')
-    if not reader_id:
-        return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
+# def profile(request):
+#     reader_id = request.session.get('reader_id')
+#     if not reader_id:
+#         return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
 
-    reader = get_object_or_404(Reader, id=reader_id)
-    return JsonResponse({
-        'first_name': reader.first_name,
-        'last_name': reader.last_name,
-        'email': reader.email,
-        'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
-        'profile_pic': reader.profile_pic.url,
-        'is_admin': reader.is_admin,
-    })
+#     reader = get_object_or_404(Reader, id=reader_id)
+#     return JsonResponse({
+#         'first_name': reader.first_name,
+#         'last_name': reader.last_name,
+#         'email': reader.email,
+#         'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
+#         'profile_pic': reader.profile_pic.url,
+#         'is_admin': reader.is_admin,
+#     })

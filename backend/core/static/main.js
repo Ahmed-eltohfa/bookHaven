@@ -534,18 +534,19 @@ let books = []
 // 	];
 
 // }
-let fetchBooks = async function() {
-    try {
-        const response = await fetch('/api/books/');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        const bookData = JSON.parse(data.books);
-        
-        console.log('Fetched books:', bookData);
+
+let fetchBooks = async function () {
+	try {
+		const response = await fetch('/api/books/');
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json();
+		const bookData = JSON.parse(data.books);
+
+		console.log('Fetched books:', bookData);
 		books = bookData.map(book => ({
 			id: book.pk,
 			name: book.fields.name,
@@ -565,15 +566,15 @@ let fetchBooks = async function() {
 		storeBooks();
 		console.log('Processed books:', books);
 
-		
-        
-    } catch (error) {
-        console.error('Failed to fetch books:', error);
-        // Optional: Show error to user
-        document.getElementById('books-container').innerHTML = `
+
+
+	} catch (error) {
+		console.error('Failed to fetch books:', error);
+		// Optional: Show error to user
+		document.getElementById('books-container').innerHTML = `
             <p class="error">Failed to load books. Please try again.</p>
         `;
-    }
+	}
 };
 
 function LoadTestUser() {
@@ -637,8 +638,9 @@ function storeBooks() {
 function loadUser() {
 	user = JSON.parse(localStorage.getItem("user"));
 	if (user === null) {
-		// LoadTestUser();
-		// storeUser(user);
+		LoadTestUser();
+		// fetchUser();
+		storeUser(user);
 	}
 }
 
@@ -646,21 +648,21 @@ function storeUser(userData) {
 	localStorage.setItem("user", JSON.stringify(userData));
 }
 
-function storeUsers() {
-	localStorage.setItem("userslist", JSON.stringify(users));
-}
+// function storeUsers() {
+// 	localStorage.setItem("userslist", JSON.stringify(users));
+// }
 
-function loadUsers() {
-	users = JSON.parse(localStorage.getItem("userslist"));
-	if (users === null) {
-		users = [];
-		storeUsers();
-	}
-}
+// function loadUsers() {
+// 	users = JSON.parse(localStorage.getItem("userslist"));
+// 	if (users === null) {
+// 		users = [];
+// 		storeUsers();
+// 	}
+// }
 
 loadBooks();
 loadUser();
-loadUsers();
+// loadUsers();
 
 
 
@@ -697,4 +699,4 @@ export async function checkPassword(plainPassword, storedHash) {
 
 
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser, storeUsers, loadUsers, users,fetchBooks };
+export { books, user, storeBooks, loadBooks, storeUser, loadUser, fetchBooks };
