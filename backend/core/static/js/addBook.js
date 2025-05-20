@@ -79,7 +79,7 @@ async function addBook() {
     try {
         const response = await fetch('/api/books/add/', {  
             method: 'POST',
-            headers: {
+            headers: { // convert the data i send to json string
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(book)

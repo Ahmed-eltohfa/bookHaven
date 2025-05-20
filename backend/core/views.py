@@ -76,10 +76,9 @@ def add_book(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
-
-def delete_book(request):
-    if request.method == 'POST':
-        book_id = request.POST.get('book_id')
+@csrf_exempt
+def delete_book(request, book_id):
+    if request.method == 'DELETE':
         try:
             book = Book.objects.get(id=book_id)
             book.delete()

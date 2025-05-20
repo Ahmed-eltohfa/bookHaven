@@ -5,24 +5,47 @@ const container = document.querySelector(".library-table tbody");
 
 let currentConfirmation = null;
 
-function deleteBook(bookId) {
-    loadUser();
-    if (!user || !user.isAdmin) {
-        alert("Not an Admin");
-        window.location = '../../';
-        return;
-    }
-    const index = books.findIndex(b => b.id === bookId);
-    if (index !== -1) {
-        books.splice(index, 1);
-        let id = 1;
-        books.forEach(book => {
-            book.id = id;
-            id += 1;
-        });
+// function deleteBook(bookId) {
+//     loadUser();
+//     if (!user || !user.isAdmin) {
+//         alert("Not an Admin");
+//         window.location = '../../';
+//         return;
+//     }
+//     const index = books.findIndex(b => b.id === bookId);
+//     if (index !== -1) {
+//         books.splice(index, 1);
+//         let id = 1;
+//         books.forEach(book => {
+//             book.id = id;
+//             id += 1;
+//         });
 
-        storeBooks();
-        renderBooks(books);
+//         storeBooks();
+//         renderBooks(books);
+//     }
+
+// }
+async function deleteBook(bookId) {
+    try {
+        const response = await fetch(`/api/books/${bookId}/`, { 
+            method: "DELETE" 
+        });
+        
+
+        const data = await response.json();
+        if (response.ok && data.status === 'success') {
+            await fetchBooks();
+            storeBooks();
+            window.location.reload();
+        } else {
+            alert('Error: ' + (data.message || 'Unknown error'));
+        }
+    }
+    catch (error) {
+        console.error("Error deleting book:", error);
+        alert("An error occurred while deleting the book.");
+        return;
     }
 
 }
@@ -149,10 +172,7 @@ if (!user || !user.isAdmin) {
     renderBooks(books);
 }
 inputSearch.addEventListener("input", function () { renderBooks(books) });
-// const signupbtn = document.querySelector('a.signup-btn');
-// const signinbtn = document.querySelector('a.signin-btn');
-// signinbtn.href = "../pages/login.html";
-// signupbtn.href = "../pages/signup.html";
+
 
 const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
