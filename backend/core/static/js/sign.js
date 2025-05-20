@@ -13,69 +13,47 @@ const confirmInput = document.querySelectorAll("input[type='password']")[1];
 const roleSelect = document.getElementById("sel");
 
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+ document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-    const firstName = firstNameInput.value.trim();
-    const lastName = lastNameInput.value.trim();
-    const email = emailInput.value.trim().toLowerCase();
-    const password = passInput.value;
-    const confirmPassword = confirmInput.value;
-    const role = roleSelect.value;
+            const first_name = document.getElementById("first-name").value;
+            const last_name = document.getElementById("last-name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("pass").value;
+            const confirmPass = document.getElementById("confirm-pass").value;
+            const role = document.getElementById("sel").value;
 
-    if (!email || !password || !confirmPassword || !role) {
-        alert("Please fill in all fields.");
-        return;
-    }
-    if(password.length < 8 || password.length > 20 ) {
-        alert("Password must be between 8 and 20 characters ");
-        return;
-    }
-    if(password.length < 8 || password.length > 20 || !password.includes("#")) {
-        alert("Password must contain '#' character.");
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-    }
+            if (password !== confirmPass) {
+                alert("❌ Passwords do not match!");
+                return;
+            }
 
-    const existingUser = users.find(user => user.email === email);
-    if (existingUser) {
-        alert("User with this email already exists.");
-        // Redirect to login page
-        window.location.href = "../login";
-        return;
-    }
-
-    const hashedPassword = await hashPassword(password);
-
-    const newUser = {
-        id: users.length + 1,
-        firstName,
-        lastName,
-        profilePic: "/static/images/profile.png",
-        email,
-        password: hashedPassword,
-        joinedSince: Date.now(),
-        isAdmin: role === "admin",
-        userBooks: [],
-    };
-
-    users.push(newUser);
-    storeUsers();
-
-    storeUser(newUser);
-    alert("User registered successfully!");
-
-    // clear the form
-    firstNameInput.value = "";
-    lastNameInput.value = "";
-    emailInput.value = "";
-    passInput.value = "";
-    confirmInput.value = "";
-    roleSelect.value = "user";
-    window.location.href = "../../";
-
-});
+            fetch("/signup/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    password: password,
+                    role: role
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseDiv = document.getElementById("response");
+                if (data.status === "success") {
+                    responseDiv.textContent = "✅ Account created successfully! ID: " + data.reader_id;
+                    responseDiv.style.color = "green";
+                } else {
+                    responseDiv.textContent = "❌ " + data.message;
+                    responseDiv.style.color = "red";
+                }
+            })
+            .catch(error => {
+                document.getElementById("response").textContent = "❌ Error: " + error;
+                document.getElementById("response").style.color = "red";
+            });
+        });
