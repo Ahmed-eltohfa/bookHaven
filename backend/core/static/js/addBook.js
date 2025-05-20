@@ -71,10 +71,10 @@ async function addBook() {
     }
 
     // Validation (using correct variable name)
-    // if (!book.name || !book.author || !book.genre || !book.description) {
-    //     alert('Please fill in all required fields');
-    //     return;
-    // }
+    if (!book.name || !book.author || !book.genre || !book.description) {
+        alert('Please fill in all required fields');
+        return;
+    }
 
     try {
         const response = await fetch('/api/books/add/', {  
