@@ -1,16 +1,15 @@
-import { user, books, storeBooks, fetchBooks } from "../main.js"
+import { user, books, storeBooks, fetchBooks, loadBooks } from "../main.js"
 
 let form = document.querySelector(".form-container")
-
 let nametext = document.querySelector("#bookname")
 let authortext = document.querySelector("#authorname")
 let categorytext = document.querySelector("#category")
 let desc = document.querySelector("#desc")
-
 const input = document.getElementById('coverInput');
 const preview = document.getElementById('coverPreview');
 
 const urlParams = new URLSearchParams(window.location.search);
+
 let bookId = window.location.pathname.split('/')[2]; // Get the last part of the URL
 
 const confirmBtn = document.querySelector(".submit-btn")
@@ -54,42 +53,72 @@ else {
 }
 
 
-function addBook() {
+async function addBook() {
+    // Create book object with consistent field names
     let book = {
-        id: bookId,
         name: nametext.value,
-        year: 1925,
         author: authortext.value,
+        year: 1925,
         genre: categorytext.value,
         cover: preview.src,
         description: desc.value,
         rating: 0,
         reviews: 0,
         language: "English",
-        releaseDate: "1925-04-10",
-        isAvailable: true,
-        history: {
-        }
+        release_date: "1925-04-10",  // Changed to match backend
+        is_available: true,          // Changed to match backend
+        history: {}
     }
 
-    if (bookId == books.length + 1) {
-        books.push(book);
-        // const response = await fetch('/api/books/add',{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(book)
-        // });
+    // Validation (using correct variable name)
+    if (!book.name || !book.author || !book.genre || !book.description) {
+        alert('Please fill in all required fields');
+        return;
     }
-    else {
-        books[bookId - 1] = book;
+
+    try {
+        const response = await fetch('/api/books/add/', {  // Added trailing slash
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(book)
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to save book');
+        }
+        
+
+        if (data.status === 'success') {
+            
+            await fetchBooks();
+
+            storeBooks();
+
+            window.location.href = "/listAdmin";
+        }else {
+            alert('Error adding book: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while adding the book: ' + error.message);
     }
-    fetchBooks();
-    // add_book(book);
-    storeBooks();
-    window.location.href = "../../listAdmin";
 }
+
+// CSRF token helper function
+function getCookie(name) {
+    const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(`${name}=`))
+        ?.split('=')[1];
+    return cookieValue ? decodeURIComponent(cookieValue) : null;
+}
+
+
 
 const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
