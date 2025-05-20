@@ -99,3 +99,83 @@ def delete_book(request):
         except Book.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Book not found'}, status=404)
     return JsonResponse({'status': 'error'}, status=400)
+
+
+
+#-------Youssef-------
+
+from .models import Book, Reader
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import make_password, check_password
+
+
+@csrf_exempt
+def signup(request):
+    if request.method == 'GET':
+        return render(request, 'signup.html')
+
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            required_fields = ['first_name', 'last_name', 'email', 'password', 'role']
+            if not all(field in data for field in required_fields):
+                return JsonResponse({'status': 'error', 'message': 'Missing fields'}, status=400)
+
+            if Reader.objects.filter(email=data['email']).exists():
+                return JsonResponse({'status': 'error', 'message': 'Email already used'}, status=409)
+
+            reader = Reader.objects.create(
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                email=data['email'],
+                password=make_password(data['password']),
+                is_admin=(data['role'].lower() == 'admin')
+            )
+
+            request.session['reader_id'] = reader.id
+            return JsonResponse({'status': 'success', 'reader_id': reader.id})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+
+@csrf_exempt
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+            password = data.get('password')
+
+            reader = Reader.objects.get(email=email)
+            if not check_password(password, reader.password):
+                return JsonResponse({'status': 'error', 'message': 'Invalid email or password.'}, status=401)
+
+            request.session['reader_id'] = reader.id
+            return JsonResponse({'status': 'success', 'reader_id': reader.id})
+
+        except Reader.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Invalid email or password.'}, status=401)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+
+def profile(request):
+    reader_id = request.session.get('reader_id')
+    if not reader_id:
+        return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
+
+    reader = get_object_or_404(Reader, id=reader_id)
+    return JsonResponse({
+        'first_name': reader.first_name,
+        'last_name': reader.last_name,
+        'email': reader.email,
+        'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
+        'profile_pic': reader.profile_pic.url,
+        'is_admin': reader.is_admin,
+    })
