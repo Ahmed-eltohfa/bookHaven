@@ -1,20 +1,21 @@
-import { user, books as allBooks } from "../main.js";
-
-if (user) {
+import { user, loadUser, books as allBooks } from "../main.js";
+loadUser()
+if (user){
+	
     // Profile Rendering
     const profileHeader = document.querySelector('.profile-header');
-
+    
     const profilePic = document.createElement('img');
-    profilePic.src = "/static/images/profile.png";
+    profilePic.src = user.profilePic;
     profilePic.alt = 'Profile Picture';
     profilePic.classList.add('profile-pic');
-
+    
     const profileInfo = document.createElement('div');
     profileInfo.classList.add('profile-info');
-
+    
     const userName = document.createElement('h2');
     userName.textContent = `${user.firstName} ${user.lastName}`;
-
+    
     const userEmail = document.createElement('p');
     userEmail.textContent = user.email;
 
@@ -34,14 +35,14 @@ if (user) {
     // Helper: Render Books
     function renderBooks(booksData) {
         userBooksContainer.innerHTML = ''; // clear previous cards
-
+        
         booksData.forEach(({ bookId, returnDate, status }) => {
             const book = allBooks.find(b => b.id === bookId);
             if (!book) return;
-
+            
             const card = document.createElement('div');
             card.className = 'book-card';
-
+            
             card.innerHTML = `
             <div class="book-image">
             <img src="${book.cover}" alt="${book.name} cover image">
@@ -49,11 +50,11 @@ if (user) {
             <h3>${book.name}</h3>
             <p>Due: ${returnDate}</p>
             <p>Status: ${status}</p>
-            <a class="learn-more" href="../bookDetails/${book.id}">
+            <a class="learn-more" href="./bookDetails.html?id=${book.id}">
             ${status === 'pending' ? 'Renew' : status === 'overdue' ? 'Pay Fine' : 'Details'}
             </a>
             `;
-
+            
             userBooksContainer.appendChild(card);
         });
     }
@@ -62,16 +63,16 @@ if (user) {
     function filterBooks() {
         const filterValue = filterSelect.value;
         const searchValue = searchInput.value.toLowerCase();
-
+        
         const filtered = user.userBooks.filter(({ bookId, status }) => {
             const book = allBooks.find(b => b.id === bookId);
             if (!book) return false;
-
+            
             const matchesStatus = filterValue === 'all' || status === filterValue;
             const matchesSearch = book.name.toLowerCase().includes(searchValue);
             return matchesStatus && matchesSearch;
         });
-
+        
         renderBooks(filtered);
     }
 
@@ -90,26 +91,26 @@ if (user) {
     // signupbtn.href = "../pages/signup.html";
 
     const authButtons = document.getElementById('auth-buttons');
-    // console.log(authButtons);
+    console.log(authButtons);
     if (user && authButtons) {
         authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
         document.getElementById('logoutBtn')?.addEventListener('click', () => {
             localStorage.removeItem('user');
             authButtons ? authButtons.innerHTML = `
-                    <a href="../signup" class="signup-btn">Sign Up</a>
-                    <a href="../login" class="signin-btn">Sign In</a>
+                    <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
+                    <a href="../pages/login.html" class="signin-btn">Sign In</a>
                 `: null;
-            window.location = "./login.html";
+            window.location= "./login.html";
         });
     } else {
         authButtons ? authButtons.innerHTML = `
-                <a href="../signup" class="signup-btn">Sign Up</a>
-                <a href="../login" class="signin-btn">Sign In</a>
+                <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
+                <a href="../pages/login.html" class="signin-btn">Sign In</a>
             `: null;
     }
-} else {
+}else{
     alert("not logged in");
-    window.location = '../';
+    window.location = "/";
 }
 
 

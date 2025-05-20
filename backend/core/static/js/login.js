@@ -27,6 +27,8 @@ form.addEventListener("submit", function (e) {
         .then(data => {
             if (data.status === "success") {
                 alert("✅ Login successful! Reader ID: " + data.reader_id);
+				localStorage.setItem("currentuser",data.reader_id)
+				window.location.href = "/profilepage/";
                 // Optionally redirect:
                 // window.location.href = "/profile/";
             } else {

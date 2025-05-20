@@ -4,6 +4,7 @@ from .models import Book
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+from .models import ReaderBook
 
 # Create your views here.
 def index(request):
@@ -19,7 +20,7 @@ def listAdmin(request):
     return render(request, 'listAdmin.html')
 def login(request):
     return render(request, 'login.html')
-def profile(request):
+def profile_page(request):
     return render(request, 'profile.html')
 def search(request):
     return render(request, 'search.html')
@@ -152,12 +153,19 @@ def login(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 
+
 def profile(request):
     reader_id = request.session.get('reader_id')
     if not reader_id:
         return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
 
     reader = get_object_or_404(Reader, id=reader_id)
+    
+    # ✅ Fetch books borrowed by this reader
+    borrowed_books = list(
+        ReaderBook.objects.filter(reader=reader).values('book_id', 'return_date', 'status')
+    )
+
     return JsonResponse({
         'first_name': reader.first_name,
         'last_name': reader.last_name,
@@ -165,4 +173,5 @@ def profile(request):
         'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
         'profile_pic': reader.profile_pic.url,
         'is_admin': reader.is_admin,
+        'userBooks': borrowed_books,  # ✅ Now available in frontend
     })

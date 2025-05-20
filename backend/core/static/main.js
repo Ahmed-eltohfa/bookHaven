@@ -637,8 +637,27 @@ function storeBooks() {
 function loadUser() {
 	user = JSON.parse(localStorage.getItem("user"));
 	if (user === null) {
-		// LoadTestUser();
-		// storeUser(user);
+		fetch(`/profilereq/`)
+			.then(response => {
+				if (!response.ok) throw new Error('Failed to fetch user data');
+				return response.json();
+			})
+			.then(data => {
+				user = {
+					id: data.id,
+					firstName: data.first_name,
+					lastName: data.last_name,
+					profilePic: data.profile_pic,
+					email: data.email,
+					joinedSince: data.joined_since,
+					isAdmin: data.is_admin,
+					userBooks: data.user_books || []
+				};
+				storeUser(user);
+			})
+			.catch(error => {
+				console.error('Error loading user:', error);
+			});
 	}
 }
 
