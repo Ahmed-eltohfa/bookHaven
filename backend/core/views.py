@@ -2,6 +2,8 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404
 from .models import Book 
 from django.http import JsonResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -31,27 +33,16 @@ def get_books(request):
     data = serializers.serialize('json', books)
     return JsonResponse({'books': data}, safe=False)
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import Book
 
-@csrf_exempt  # Temporary for development
+
+ 
 def add_book(request):
     if request.method == 'POST':
         try:
             # Parse JSON data from request body
             data = json.loads(request.body)
             
-            # Required fields
-            required_fields = ['name', 'author', 'genre', 'description']
-            if not all(field in data for field in required_fields):
-                return JsonResponse(
-                    {'status': 'error', 'message': 'Missing required fields'}, 
-                    status=400
-                )
-            
-            # Create the book with defaults
+            # Create the book 
             book = Book.objects.create(
                 name=data['name'],
                 author=data['author'],
@@ -83,10 +74,7 @@ def add_book(request):
                 status=500
             )
     
-    return JsonResponse(
-        {'status': 'error', 'message': 'Invalid request method'}, 
-        status=400
-    )
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 
 def delete_book(request):
