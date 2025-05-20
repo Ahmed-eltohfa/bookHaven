@@ -28,32 +28,75 @@ const roleSelect = document.getElementById("sel");
                 return;
             }
 
-            fetch("/signup/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    first_name: first_name,
-                    last_name: last_name,
-                    email: email,
-                    password: password,
-                    role: role
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const responseDiv = document.getElementById("response");
-                if (data.status === "success") {
-                    responseDiv.textContent = "✅ Account created successfully! ID: " + data.reader_id;
-                    responseDiv.style.color = "green";
-                } else {
-                    responseDiv.textContent = "❌ " + data.message;
-                    responseDiv.style.color = "red";
-                }
-            })
-            .catch(error => {
-                document.getElementById("response").textContent = "❌ Error: " + error;
-                document.getElementById("response").style.color = "red";
-            });
+			const fileInput = document.getElementById("profile-pic");
+			let profilePicBase64 = "";
+
+			if (fileInput && fileInput.files && fileInput.files[0]) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					profilePicBase64 = e.target.result;
+
+					fetch("/signup/", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							first_name: first_name,
+							last_name: last_name,
+							email: email,
+							profile_pic: profilePicBase64,
+							password: password,
+							role: role
+						})
+					})
+					.then(response => response.json())
+					.then(data => {
+						const responseDiv = document.getElementById("response");
+						if (data.status === "success") {
+							responseDiv.textContent = "✅ Account created successfully! ID: " + data.reader_id;
+							responseDiv.style.color = "green";
+						} else {
+							responseDiv.textContent = "❌ " + data.message;
+							responseDiv.style.color = "red";
+						}
+					})
+					.catch(error => {
+						document.getElementById("response").textContent = "❌ Error: " + error;
+						document.getElementById("response").style.color = "red";
+					});
+				};
+				reader.readAsDataURL(fileInput.files[0]);
+			} else {
+				// No file selected, send empty string or a default base64 image if needed
+				fetch("/signup/", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						first_name: first_name,
+						last_name: last_name,
+						email: email,
+						profile_pic: profilePicBase64,
+						password: password,
+						role: role
+					})
+				})
+				.then(response => response.json())
+				.then(data => {
+					const responseDiv = document.getElementById("response");
+					if (data.status === "success") {
+						responseDiv.textContent = "✅ Account created successfully! ID: " + data.reader_id;
+						responseDiv.style.color = "green";
+					} else {
+						responseDiv.textContent = "❌ " + data.message;
+						responseDiv.style.color = "red";
+					}
+				})
+				.catch(error => {
+					document.getElementById("response").textContent = "❌ Error: " + error;
+					document.getElementById("response").style.color = "red";
+				});
+			}
         });

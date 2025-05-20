@@ -4,6 +4,7 @@ from .models import Book
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+from .models import ReaderBook
 
 # Create your views here.
 def index(request):
@@ -19,7 +20,7 @@ def listAdmin(request):
     return render(request, 'listAdmin.html')
 def login(request):
     return render(request, 'login.html')
-def profile(request):
+def profile_page(request):
     return render(request, 'profile.html')
 def search(request):
     return render(request, 'search.html')
