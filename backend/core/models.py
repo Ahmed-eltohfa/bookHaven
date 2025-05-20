@@ -37,6 +37,7 @@ class Book(models.Model):
 class Reader(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    password = models.CharField(max_length=300)
     email = models.EmailField(unique=True)
     profile_pic = models.ImageField(
         upload_to='reader_profiles/',
