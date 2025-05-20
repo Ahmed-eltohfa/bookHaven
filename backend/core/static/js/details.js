@@ -1,4 +1,4 @@
-import { books, storeBooks, storeUser, user } from "../main.js";
+import { books, storeBooks, storeUser, user, fetchBooks } from "../main.js";
 
 // Get the query string from the current URL
 const queryString = window.location.search;
@@ -102,26 +102,30 @@ function formatDate(dateStr) {
 }
 
 // Helper: borrow book
-function borrowBook(bookId) {
+async function borrowBook(bookId) {
     const book = books.find(b => b.id === bookId);
-    if (book && book.isAvailable) {
-        book.isAvailable = false;
-        alert(`You have borrowed "${book.name}".`);
-        // Update the book history
-        book.history.borrowed += 1;
-        user.userBooks.push({
-            bookId: book.id,
-            returnDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-            isReturned: false,
-            status: "borrowed",
+    book.is_available = false;
+    try {
+        const response = await fetch(`/api/books/update/${bookId}/`, {
+            method: 'PUT',
+            headers: { // convert the data i send to json string
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(book)
         });
-        storeUser(user);
-        // console.log(user);
 
-    } else {
-        alert(`"${book.name}" is not available for borrowing.`);
+        const data = await response.json();
+
+        if (response.ok && data.status === 'success') {
+            await fetchBooks();
+            storeBooks();
+            window.location.href = "../../profile";
+        } else {
+            console.log('Error: ' + (data.message || 'Unknown error'));
+        }
+    } catch (error) {
+        console.log('An error occurred while updating the book: ' + error.message);
     }
-    storeBooks()
 }
 
 // const signupbtn = document.querySelector('a.signup-btn');

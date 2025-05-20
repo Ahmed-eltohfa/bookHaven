@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/books/', views.get_books, name='get_books'),
     path('api/books/add/', views.add_book, name='add_book'),
     path('api/books/<int:book_id>/', views.delete_book, name='delete_book'),
+    path('api/books/update/<int:book_id>/', views.update_book, name='update_book'),
 
     # path('api/books/update', views.update_book, name='update_book'),
 ]

@@ -1,4 +1,4 @@
-import { books, loadUser, storeBooks, user,fetchBooks } from "../main.js";
+import { books, loadUser, storeBooks, user, fetchBooks } from "../main.js";
 
 const inputSearch = document.getElementById("search");
 const container = document.querySelector(".library-table tbody");
@@ -8,11 +8,10 @@ let currentConfirmation = null;
 
 async function deleteBook(bookId) {
     try {
-        const response = await fetch(`/api/books/${bookId}/`, { 
-            method: "DELETE" 
+        const response = await fetch(`/api/books/${bookId}/`, {
+            method: "DELETE"
         });
-
-        
+        const data = await response.json();
         if (response.ok && data.status === 'success') {
             await fetchBooks();
             storeBooks();
@@ -20,11 +19,11 @@ async function deleteBook(bookId) {
         } else {
             alert('Error: ' + (data.message || 'Unknown error'));
         }
-        
+
     }
     catch (error) {
         console.error("Error deleting book:", error);
-        alert("An error occurred while deleting the book.");
+        // alert("An error occurred while deleting the book.");
         return;
     }
 

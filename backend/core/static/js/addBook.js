@@ -33,27 +33,23 @@ input.addEventListener('change', function () {
     }
 });
 
-
-if (bookId > 0) {
-    bookId = parseInt(bookId);
-    nametext.value = bookId;
-    let book = books[bookId - 1];
-
-    nametext.value = book.name;
-    authortext.value = book.author;
-    categorytext.value = book.genre;
-    desc.value = book.description;
-
-
-    preview.style.display = "block";
-    preview.src = book.cover;
-}
-else {
-    bookId = books.length + 1;
+if (bookId) {
+    const book = books.find(b => b.id == bookId);
+    if (book) {
+        nametext.value = book.name;
+        authortext.value = book.author;
+        categorytext.value = book.genre;
+        desc.value = book.description;
+        preview.src = book.cover;
+        preview.style.display = "block";
+    } else {
+        alert('Book not found');
+    }
 }
 
 
 async function addBook() {
+
     // Create book object with consistent field names
     let book = {
         name: nametext.value,
@@ -69,36 +65,59 @@ async function addBook() {
         is_available: true,          // Changed to match backend
         history: {}
     }
-
     // Validation (using correct variable name)
     if (!book.name || !book.author || !book.genre || !book.description) {
         alert('Please fill in all required fields');
         return;
     }
 
-    try {
-        const response = await fetch('/api/books/add/', {  
-            method: 'POST',
-            headers: { // convert the data i send to json string
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(book)
-        });
+    if (bookId) {
+        book.id = bookId;
+        try {
+            const response = await fetch(`/api/books/update/${bookId}/`, {
+                method: 'PUT',
+                headers: { // convert the data i send to json string
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(book)
+            });
 
-        const data = await response.json();
-        
-        if (response.ok && data.status === 'success') {
-            await fetchBooks();
-            storeBooks();
-            window.location.href = "/listAdmin";
-        } else {
-            alert('Error: ' + (data.message || 'Unknown error'));
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                await fetchBooks();
+                storeBooks();
+                window.location.href = "/listAdmin";
+            } else {
+                console.log('Error: ' + (data.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.log('An error occurred while updating the book: ' + error.message);
         }
-    } catch (error) {
-        alert('An error occurred while adding the book: ' + error.message);
+    } else {
+        try {
+            const response = await fetch('/api/books/add/', {
+                method: 'POST',
+                headers: { // convert the data i send to json string
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(book)
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                await fetchBooks();
+                storeBooks();
+                window.location.href = "/listAdmin";
+            } else {
+                alert('Error: ' + (data.message || 'Unknown error'));
+            }
+        } catch (error) {
+            alert('An error occurred while adding the book: ' + error.message);
+        }
     }
 }
-
 
 
 
