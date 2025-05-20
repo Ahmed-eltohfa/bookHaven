@@ -1,7 +1,7 @@
 // login.js
-import { users, loadUsers, storeUser, checkPassword } from "../main.js";
+import { users, loadUser, storeUser, checkPassword } from "../main.js";
 
-loadUsers();
+loadUser();
 
 const form = document.querySelector("form");
 const emailInput = document.getElementById("email");
@@ -26,9 +26,10 @@ form.addEventListener("submit", function (e) {
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
+				loadUser()
                 alert("✅ Login successful! Reader ID: " + data.reader_id);
 				localStorage.setItem("currentuser",data.reader_id)
-				window.location.href = "/profilepage/";
+				window.location.href = "/profile/";
                 // Optionally redirect:
                 // window.location.href = "/profile/";
             } else {

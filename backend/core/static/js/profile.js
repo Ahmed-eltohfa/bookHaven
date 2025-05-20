@@ -1,4 +1,4 @@
-import { user, loadUser, books as allBooks } from "../main.js";
+import { user, loadUser, books as allBooks, logout } from "../main.js";
 loadUser()
 if (user){
 	
@@ -95,12 +95,7 @@ if (user){
     if (user && authButtons) {
         authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
         document.getElementById('logoutBtn')?.addEventListener('click', () => {
-            localStorage.removeItem('user');
-            authButtons ? authButtons.innerHTML = `
-                    <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
-                    <a href="../pages/login.html" class="signin-btn">Sign In</a>
-                `: null;
-            window.location= "./login.html";
+            logout(authButtons)
         });
     } else {
         authButtons ? authButtons.innerHTML = `

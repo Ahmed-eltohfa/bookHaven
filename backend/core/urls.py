@@ -14,6 +14,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('profile/', views.profile_page, name='profile'),
     path('profilereq/', views.profile, name='profilereq'),
+    path('logoutreq/', views.logoutreq, name='logout'),
 
     # Book management
     path('addBook/<int:book_id>/', views.addBook, name='addBook'),

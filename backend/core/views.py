@@ -175,3 +175,20 @@ def profile(request):
         'is_admin': reader.is_admin,
         'userBooks': borrowed_books,  # ✅ Now available in frontend
     })
+    
+@csrf_exempt
+def logoutreq(request):
+    if request.method == 'POST':
+        try:
+            # Remove reader_id from session
+            if 'reader_id' in request.session:
+                del request.session['reader_id']
+            
+            # Optional: clear entire session if needed
+            # request.session.flush()
+
+            return JsonResponse({'status': 'success', 'message': 'Logged out successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

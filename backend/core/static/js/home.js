@@ -1,4 +1,4 @@
-import { user, books } from "../main.js";
+import { user, books ,logout} from "../main.js";
 
 const booksToDisplay = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
 const recommendedBooks = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
@@ -101,11 +101,7 @@ const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        localStorage.removeItem('user');
-        authButtons ? authButtons.innerHTML = `
-				<a href="signup" class="signup-btn">Sign Up</a>
-				<a href="login" class="signin-btn">Sign In</a>
-			`: null;
+        logout(authButtons)
     });
 } else {
     authButtons ? authButtons.innerHTML = `
