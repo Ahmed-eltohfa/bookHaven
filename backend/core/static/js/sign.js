@@ -1,7 +1,5 @@
 // signup.js
-import { users, storeUsers, loadUsers, storeUser, hashPassword } from "../main.js";
-
-loadUsers();
+import { user, storeUser, loadUser, hashPassword } from "../main.js";
 
 const firstNameInput = document.getElementById("first-name");
 const lastNameInput = document.getElementById("last-name");

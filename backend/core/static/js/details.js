@@ -117,9 +117,27 @@ async function borrowBook(bookId) {
         const data = await response.json();
 
         if (response.ok && data.status === 'success') {
-            await fetchBooks();
-            storeBooks();
-            window.location.href = "../../profile";
+            // Send POST request to record the borrow
+            const borrowResponse = await fetch('/api/borrow/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_id: user.id, // assuming user is defined globally
+                    book_id: bookId
+                })
+            });
+
+            const borrowData = await borrowResponse.json();
+
+            if (borrowResponse.ok && borrowData.message === 'Book borrowed successfully') {
+                await fetchBooks();
+                storeBooks();
+                // window.location.href = "profile/";
+            } else {
+                console.log('Borrow Error: ' + (borrowData.error || 'Unknown error'));
+            }
         } else {
             console.log('Error: ' + (data.message || 'Unknown error'));
         }
@@ -139,8 +157,8 @@ if (user && authButtons) {
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
         localStorage.removeItem('user');
         authButtons ? authButtons.innerHTML = `
-                    <a href="../signup" class="signup-btn">Sign Up</a>
-                    <a href="../login" class="signin-btn">Sign In</a>
+                    <a href="../../signup" class="signup-btn">Sign Up</a>
+                    <a href="../../login" class="signin-btn">Sign In</a>
                 `: null;
         window.location = "./login.html";
     });

@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404
 from .models import Book 
@@ -20,7 +21,7 @@ def listAdmin(request):
     return render(request, 'listAdmin.html')
 def login(request):
     return render(request, 'login.html')
-def profile_page(request):
+def profile(request):
     return render(request, 'profile.html')
 def search(request):
     return render(request, 'search.html')
@@ -186,12 +187,69 @@ def login(request):
 #     if not reader_id:
 #         return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
 
-#     reader = get_object_or_404(Reader, id=reader_id)
-#     return JsonResponse({
-#         'first_name': reader.first_name,
-#         'last_name': reader.last_name,
-#         'email': reader.email,
-#         'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
-#         'profile_pic': reader.profile_pic.url,
-#         'is_admin': reader.is_admin,
-#     })
+@csrf_exempt
+def profilereq(request):
+    reader_id = request.session.get('reader_id')
+    if not reader_id:
+        return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
+
+    reader = get_object_or_404(Reader, id=reader_id)
+    
+    # ✅ Fetch books borrowed by this reader
+    borrowed_books = list(
+        ReaderBook.objects.filter(reader=reader).values('book_id', 'return_date', 'status')
+    )
+
+    return JsonResponse({
+        'first_name': reader.first_name,
+        'last_name': reader.last_name,
+        'email': reader.email,
+        'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
+        'profile_pic': reader.profile_pic.url,
+        'is_admin': reader.is_admin,
+        'userBooks': borrowed_books,
+        'id' : reader_id# ✅ Now available in frontend
+    })
+@csrf_exempt
+def BorrowBook(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            user_id = data.get("user_id")
+            book_id = data.get("book_id")
+
+            # Create new ReaderBook entry
+            print(data)
+            reader_book = ReaderBook.objects.create(
+                reader_id=user_id,
+                book_id=book_id,
+                return_date=date.today() + timedelta(days=14),  # example: 2 weeks later
+                is_returned=False,
+                status="borrowed"
+            )
+
+            return JsonResponse({"message": "Book borrowed successfully", "id": reader_book.id}, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Invalid HTTP method"}, status=405)
+    
+@csrf_exempt
+def logoutreq(request):
+    if request.method == 'POST':
+        try:
+            # Remove reader_id from session
+            if 'reader_id' in request.session:
+                del request.session['reader_id']
+            
+            # Optional: clear entire session if needed
+            # request.session.flush()
+
+            return JsonResponse({'status': 'success', 'message': 'Logged out successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

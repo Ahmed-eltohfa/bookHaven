@@ -1,91 +1,62 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="icon" href="{% static 'images/book-store-favicon-32x32.png' %}">
-    <link rel="stylesheet" href="{% static 'pages.css' %}">
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=lock,mail" />
+    <link
+      rel="icon"
+      href="{% static 'images/book-store-favicon-32x32.png' %}"
+    />
+    <link rel="stylesheet" href="{% static 'pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=lock,mail"
+    />
     <style>
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 300,
-                'GRAD' 0,
-                'opsz' 24;
-            color: #757575;
-        }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+        color: #757575;
+      }
     </style>
-</head>
+  </head>
 
-<body class="auth-page">
+  <body class="auth-page">
     <div class="form-container">
-        <h1>Welcome Back</h1>
-        <p>Log in to continue borrowing books!</p>
-        <form>
-            <label for="email">
-                <span class="material-symbols-outlined">
-                    mail
-                </span>
-                <input id="email" type="email" placeholder="Your email address" required>
-            </label>
-            <label for="pass">
-                <span class="material-symbols-outlined">
-                    lock
-                </span>
-                <input id="pass" type="password" placeholder="Enter your password" required>
-            </label>
-            <button type="submit">Log In</button>
-            <p class="small-text">Don't have an account? <a href="../signup">Sign Up</a></p>
-        </form>
+      <h1>Welcome Back</h1>
+      <p>Log in to continue borrowing books!</p>
+      <form>
+        <label for="email">
+          <span class="material-symbols-outlined"> mail </span>
+          <input
+            id="email"
+            type="email"
+            placeholder="Your email address"
+            required
+          />
+        </label>
+        <label for="pass">
+          <span class="material-symbols-outlined"> lock </span>
+          <input
+            id="pass"
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
+        </label>
+        <button type="submit">Log In</button>
+        <p class="small-text">
+          Don't have an account? <a href="../signup">Sign Up</a>
+        </p>
+      </form>
     </div>
     <script src="{% static 'main.js' %}" type="module"></script>
     <script src="{% static 'js/login.js' %}" type="module"></script>
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("pass").value;
-
-            fetch("/login/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        alert("✅ Login successful! Reader ID: " + data.reader_id);
-
-                        // Optionally redirect:
-                        // window.location.href = "/profile/";
-                    } else {
-                        alert("❌ Login failed: " + data.message);
-                    }
-                })
-                .catch(error => {
-                    alert("❌ Error: " + error);
-                });
-        });
-    </script>
     {% comment %}
-    <script>
-
-    </script> {% endcomment %}
-
-
-</body>
-
+    <script></script>
+    {% endcomment %}
+  </body>
 </html>

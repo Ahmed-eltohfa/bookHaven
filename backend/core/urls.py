@@ -12,8 +12,9 @@ urlpatterns = [
     # User auth
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('profile/', views.profile_page, name='profile'),
-    # path('profilereq/', views.profile, name='profilereq'),
+    path('profile/', views.profile, name='profile'),
+    path('profilereq/', views.profilereq, name='profilereq'),
+    path('logoutreq/', views.logoutreq, name='logout'),
 
     # Book management
     path('addBook/<int:book_id>/', views.addBook, name='addBook'),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('api/books/add/', views.add_book, name='add_book'),
     path('api/books/<int:book_id>/', views.delete_book, name='delete_book'),
     path('api/books/update/<int:book_id>/', views.update_book, name='update_book'),
+    path('api/borrow/', views.BorrowBook, name="borrowBook")
 
     # path('api/books/update', views.update_book, name='update_book'),
 ]

@@ -5,6 +5,10 @@ const container = document.querySelector(".library-table tbody");
 
 let currentConfirmation = null;
 
+loadUser()
+
+// console.log(JSON.stringify(user))
+// alert("FUCKER")
 
 async function deleteBook(bookId) {
     try {
@@ -80,8 +84,8 @@ function createActionButtons(bookDetails) {
 }
 
 function addBook(bookDetails) {
-    loadUser();
-    if (!user || !user.isAdmin) {
+    // loadUser();
+    if (!user || !user.is_admin) {
         alert("Not an Admin");
         window.location = '../../';
         return;
@@ -144,7 +148,7 @@ function filterBooks(list) {
     return filtered
 }
 
-if (!user || !user.isAdmin) {
+if (!user || !user.is_admin) {
     alert("Not an Admin");
     window.location = '../../';
 } else {

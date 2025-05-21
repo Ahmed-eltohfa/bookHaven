@@ -1,4 +1,4 @@
-import { user, loadUser, books as allBooks } from "../main.js";
+import { user, loadUser, books as allBooks, logout } from "../main.js";
 loadUser()
 if (user) {
 
@@ -6,7 +6,7 @@ if (user) {
     const profileHeader = document.querySelector('.profile-header');
 
     const profilePic = document.createElement('img');
-    profilePic.src = user.profilePic;
+    profilePic.src = "/static/images/profile.png";
     profilePic.alt = 'Profile Picture';
     profilePic.classList.add('profile-pic');
 
@@ -14,12 +14,12 @@ if (user) {
     profileInfo.classList.add('profile-info');
 
     const userName = document.createElement('h2');
-    userName.textContent = `${user.firstName} ${user.lastName}`;
+    userName.textContent = `${user.first_name} ${user.last_name}`;
 
     const userEmail = document.createElement('p');
     userEmail.textContent = user.email;
 
-    const joinedSince = new Date(user.joinedSince);
+    const joinedSince = new Date(user.joined_date);
     const formattedDate = joinedSince.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
     const userMemberSince = document.createElement('p');
     userMemberSince.textContent = `Member since ${formattedDate}`;
@@ -95,17 +95,12 @@ if (user) {
     if (user && authButtons) {
         authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
         document.getElementById('logoutBtn')?.addEventListener('click', () => {
-            localStorage.removeItem('user');
-            authButtons ? authButtons.innerHTML = `
-                    <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
-                    <a href="../pages/login.html" class="signin-btn">Sign In</a>
-                `: null;
-            window.location = "./login.html";
+            logout(authButtons)
         });
     } else {
         authButtons ? authButtons.innerHTML = `
-                <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
-                <a href="../pages/login.html" class="signin-btn">Sign In</a>
+                <a href="signup/" class="signup-btn">Sign Up</a>
+                <a href="login/" class="signin-btn">Sign In</a>
             `: null;
     }
 } else {
