@@ -571,7 +571,7 @@ let fetchBooks = async function () {
 		storeBooks();
 
 	} catch (error) {
-		console.error('Failed to fetch books:', error);
+		console.log('Failed to fetch books:', error);
 		document.getElementById('books-container').innerHTML = `
 			<p class="error">Failed to load books. Please try again.</p>
 		`;
@@ -627,10 +627,7 @@ function LoadTestUser() {
 
 async function loadBooks() {
 	books = JSON.parse(localStorage.getItem("bookslist"))
-	if (books === null) {
-		await fetchBooks();
-		// LoadTestBooks();
-	}
+	await fetchBooks();
 	storeBooks();
 }
 
@@ -638,16 +635,16 @@ function storeBooks() {
 	localStorage.setItem("bookslist", JSON.stringify(books))
 }
 
-function fetchUser(){
+function fetchUser() {
 	return $.ajax({
 		url: "/profilereq/",
 		method: "GET",
 		dataType: "json",
-		success: function(data2) {
+		success: function (data2) {
 			storeUser(data2);
 			return true;
 		},
-		error: function(xhr, status, error) {
+		error: function (xhr, status, error) {
 			alert("❌ Error fetching profile: " + error);
 			return false;
 		}
@@ -734,4 +731,4 @@ function logout(authButtons) {
 }
 
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser,fetchBooks,logout,fetchUser };
+export { books, user, storeBooks, loadBooks, storeUser, loadUser, fetchBooks, logout, fetchUser };

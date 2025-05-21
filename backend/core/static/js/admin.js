@@ -1,4 +1,4 @@
-import { books, loadUser, storeBooks, user, fetchBooks, logout } from "../main.js";
+import { books, loadUser, storeBooks, user, fetchBooks, logout, fetchUser } from "../main.js";
 
 const inputSearch = document.getElementById("search");
 const container = document.querySelector(".library-table tbody");
@@ -7,47 +7,22 @@ let currentConfirmation = null;
 
 loadUser()
 
-
-
-// async function deleteBook(bookId) {
-//     try {
-//         const response = await fetch(`/api/books/${bookId}/`, {
-//             method: "DELETE"
-//         });
-//         const data = await response.json();
-//         if (response.ok && data.status === 'success') {
-//             await fetchBooks();
-//             storeBooks();
-//             renderBooks(books);
-//         } else {
-//             alert('Error: ' + (data.message || 'Unknown error'));
-//         }
-
-//     }
-//     catch (error) {
-//         console.error("Error deleting book:", error);
-//         // alert("An error occurred while deleting the book.");
-//         return;
-//     }
-
-// }
-
 function deleteBook(bookId) {
     $.ajax({
         url: `/api/books/${bookId}/`,
         type: 'DELETE',
-        success: function(data) {
+        success: function (data) {
             if (data.status === 'success') {
-                fetchBooks().then(function() {
+                fetchBooks().then(function () {
                     storeBooks();
-					fetchUser();
+                    fetchUser();
                     renderBooks(books);
                 });
             } else {
                 alert('Error: ' + (data.message || 'Unknown error'));
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             alert("An error occurred while deleting the book.");
         }
     });
@@ -164,9 +139,10 @@ function renderBooks(bookList) {
 
 function filterBooks(list) {
     const name = inputSearch.value.trim().toLowerCase();
-    let filtered = list.filter(book => book.name.toLowerCase().includes(name));
+    let filtered = list.filter(book => book.name.toLowerCase().includes(name) || book.author.toLowerCase().includes(name));
     return filtered
 }
+
 
 if (!user || !user.is_admin) {
     alert("Not an Admin");
@@ -181,7 +157,7 @@ const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        logout(authButtons);		
+        logout(authButtons);
     });
 } else {
     authButtons ? authButtons.innerHTML = `
