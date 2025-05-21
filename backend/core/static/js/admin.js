@@ -1,4 +1,4 @@
-import { books, loadUser, storeBooks, user, fetchBooks } from "../main.js";
+import { books, loadUser, storeBooks, user, fetchBooks, logout } from "../main.js";
 
 const inputSearch = document.getElementById("search");
 const container = document.querySelector(".library-table tbody");
@@ -180,12 +180,7 @@ const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        localStorage.removeItem('user');
-        authButtons ? authButtons.innerHTML = `
-                    <a href="../../signup" class="signup-btn">Sign Up</a>
-                    <a href="../../login" class="signin-btn">Sign In</a>
-                `: null;
-        window.location = "../../login";
+        logout(authButtons);
     });
 } else {
     authButtons ? authButtons.innerHTML = `
