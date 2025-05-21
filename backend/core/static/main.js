@@ -535,6 +535,12 @@ let books = []
 
 // }
 
+
+
+
+
+
+
 let fetchBooks = async function () {
 	try {
 		const response = await fetch('/api/books/');
@@ -576,6 +582,9 @@ let fetchBooks = async function () {
         `;
 	}
 };
+
+
+
 
 function LoadTestUser() {
 	user = {

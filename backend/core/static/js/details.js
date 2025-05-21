@@ -102,56 +102,89 @@ function formatDate(dateStr) {
 }
 
 // Helper: borrow book
-async function borrowBook(bookId) {
+// async function borrowBook(bookId) {
+//     const book = books.find(b => b.id === bookId);
+//     book.is_available = false;
+//     try {
+//         const response = await fetch(`/api/books/update/${bookId}/`, {
+//             method: 'PUT',
+//             headers: { // convert the data i send to json string
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(book)
+//         });
+
+//         const data = await response.json();
+
+//         if (response.ok && data.status === 'success') {
+//             // Send POST request to record the borrow
+//             const borrowResponse = await fetch('/api/borrow/', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     user_id: user.id, // assuming user is defined globally
+//                     book_id: bookId
+//                 })
+//             });
+
+//             const borrowData = await borrowResponse.json();
+
+//             if (borrowResponse.ok && borrowData.message === 'Book borrowed successfully') {
+//                 await fetchBooks();
+//                 storeBooks();
+//                 // window.location.href = "profile/";
+//             } else {
+//                 console.log('Borrow Error: ' + (borrowData.error || 'Unknown error'));
+//             }
+//         } else {
+//             console.log('Error: ' + (data.message || 'Unknown error'));
+//         }
+//     } catch (error) {
+//         console.log('An error occurred while updating the book: ' + error.message);
+//     }
+// }
+
+function borrowBook(bookId) {
     const book = books.find(b => b.id === bookId);
     book.is_available = false;
-    try {
-        const response = await fetch(`/api/books/update/${bookId}/`, {
-            method: 'PUT',
-            headers: { // convert the data i send to json string
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(book)
+
+    $.ajax({
+        url: `/api/books/update/${bookId}/`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(book)
+    })
+    .then(function(data) {
+        if (data.status !== 'success') throw new Error(data.message || 'Update failed');
+        return $.ajax({
+            url: '/api/borrow/',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                user_id: user.id,
+                book_id: bookId
+            })
         });
-
-        const data = await response.json();
-
-        if (response.ok && data.status === 'success') {
-            // Send POST request to record the borrow
-            const borrowResponse = await fetch('/api/borrow/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_id: user.id, // assuming user is defined globally
-                    book_id: bookId
-                })
-            });
-
-            const borrowData = await borrowResponse.json();
-
-            if (borrowResponse.ok && borrowData.message === 'Book borrowed successfully') {
-                await fetchBooks();
-                storeBooks();
-                // window.location.href = "profile/";
-            } else {
-                console.log('Borrow Error: ' + (borrowData.error || 'Unknown error'));
-            }
-        } else {
-            console.log('Error: ' + (data.message || 'Unknown error'));
+    })
+    .then(function(borrowData) {
+        if (borrowData.message !== 'Book borrowed successfully') {
+            throw new Error(borrowData.error || 'Borrow failed');
         }
-    } catch (error) {
-        console.log('An error occurred while updating the book: ' + error.message);
-    }
+        return fetchBooks();
+    })
+    .then(function() {
+        storeBooks();
+        // window.location.href = "profile/";
+    })
+    .catch(function(error) {
+        console.error('Error:', error.message);
+    });
 }
 
-// const signupbtn = document.querySelector('a.signup-btn');
-// const signinbtn = document.querySelector('a.signin-btn');
-// signinbtn.href = "../pages/login.html";
-// signupbtn.href = "../pages/signup.html";
 const authButtons = document.getElementById('auth-buttons');
-// console.log(authButtons);
+
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {

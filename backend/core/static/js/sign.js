@@ -25,6 +25,15 @@ const roleSelect = document.getElementById("sel");
                 alert("❌ Passwords do not match!");
                 return;
             }
+			if (password.length < 8) {
+				alert("❌ Password must be at least 8 characters long!");
+				return;
+			}
+			if (!password.includes("#") && !password.includes("@") && !password.includes("$")) {
+				alert("❌ Password must contain at least one special character (#, @, $)!");
+				return;
+			}
+
 
 			const fileInput = document.getElementById("profile-pic");
 			let profilePicBase64 = "";
