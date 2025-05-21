@@ -61,14 +61,14 @@ if (book && container) {
     if (!book.isAvailable) {
         borrowBtn.disabled = true;
         borrowBtn.textContent = "Not Available";
-        borrowBtn.style.backgroundColor = "rgb(214, 28, 28)";
+        borrowBtn.style.backgroundColor = "rgb(150, 150, 150)";
         borrowBtn.style.cursor = "not-allowed";
     }
     borrowBtn.onclick = () => {
         borrowBook(book.id);
         borrowBtn.disabled = true;
         borrowBtn.textContent = "Not Available";
-        borrowBtn.style.backgroundColor = "rgb(214, 28, 28)";
+        borrowBtn.style.backgroundColor = "rgb(150, 150, 150)";
         borrowBtn.style.cursor = "not-allowed";
     };
 
@@ -83,13 +83,43 @@ if (book && container) {
     infoDiv.appendChild(desc);
 	
 	if (user && user.is_admin) {
+		const adminbuttons = document.createElement("div");
+		adminbuttons.className = "buttons";
 		const editBtn = document.createElement("button");
-		editBtn.className = "btn warning"; // Use a different style class if desired
-		editBtn.textContent = "Edit Book";
+		editBtn.className = "btn green"; // Use a different style class if desired
+		editBtn.textContent = "Edit";
 		editBtn.onclick = () => {
 			window.location.href = `/addBook/${book.id}`; // Define this function to handle editing
 		};
-		buttonsDiv.appendChild(editBtn);
+
+
+		const deleteBtn = document.createElement("button");
+		deleteBtn.className = "btn red"; // Use a different style class if desired
+		deleteBtn.textContent = "Delete";
+		deleteBtn.onclick = () => {
+			$.ajax({
+					url: `/api/books/${book.id}/`,
+					type: 'DELETE',
+					success: function(data) {
+						if (data.status === 'success') {
+							fetchBooks().then(function() {
+								storeBooks();
+								window.location.href = "/search/"
+							});
+						} else {
+							alert('Error: ' + (data.message || 'Unknown error'));
+						}
+					},
+					error: function(xhr, status, error) {
+						alert("An error occurred while deleting the book.");
+					}
+				});
+
+		};
+
+		adminbuttons.appendChild(editBtn);
+		adminbuttons.appendChild(deleteBtn);
+		buttonsDiv.appendChild(adminbuttons);
 	}
     
 	infoDiv.appendChild(buttonsDiv);
