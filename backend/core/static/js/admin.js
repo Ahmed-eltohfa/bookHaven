@@ -181,6 +181,9 @@ if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
         logout(authButtons);
+
+
+		
     });
 } else {
     authButtons ? authButtons.innerHTML = `

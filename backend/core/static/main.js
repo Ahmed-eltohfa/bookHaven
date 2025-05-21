@@ -543,7 +543,12 @@ let books = []
 
 let fetchBooks = async function () {
 	try {
-		const response = await fetch('/api/books/');
+		const response = await $.ajax({
+    url: '/api/books/',
+    method: 'GET',
+    dataType: 'json'
+	});
+
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);

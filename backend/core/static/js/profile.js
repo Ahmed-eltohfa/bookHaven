@@ -3,12 +3,21 @@ import { user, books, logout } from "../main.js";
 async function loadProfileAndBooks() {
 	try {
 		const [profileRes, booksRes] = await Promise.all([
-			fetch("/profilereq/"),
-            fetch("/api/books/")
-        ]);
+			$.ajax({
+				url: "/profilereq/",
+				method: "GET",
+				dataType: "json"
+			}),
+			$.ajax({
+				url: "/api/books/",
+				method: "GET",
+				dataType: "json"
+			})
+	]);
+
 		
-        const profile = await profileRes.json();
-        const booksRaw = await booksRes.json();
+        const profile = await profileRes;
+        const booksRaw = await booksRes;
         const books = JSON.parse(booksRaw.books);
 		
         if (profile.status === "error") {
