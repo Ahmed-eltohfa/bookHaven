@@ -7,30 +7,49 @@ let currentConfirmation = null;
 
 loadUser()
 
-// console.log(JSON.stringify(user))
-// alert("FUCKER")
 
-async function deleteBook(bookId) {
-    try {
-        const response = await fetch(`/api/books/${bookId}/`, {
-            method: "DELETE"
-        });
-        const data = await response.json();
-        if (response.ok && data.status === 'success') {
-            await fetchBooks();
-            storeBooks();
-            renderBooks(books);
-        } else {
-            alert('Error: ' + (data.message || 'Unknown error'));
+
+// async function deleteBook(bookId) {
+//     try {
+//         const response = await fetch(`/api/books/${bookId}/`, {
+//             method: "DELETE"
+//         });
+//         const data = await response.json();
+//         if (response.ok && data.status === 'success') {
+//             await fetchBooks();
+//             storeBooks();
+//             renderBooks(books);
+//         } else {
+//             alert('Error: ' + (data.message || 'Unknown error'));
+//         }
+
+//     }
+//     catch (error) {
+//         console.error("Error deleting book:", error);
+//         // alert("An error occurred while deleting the book.");
+//         return;
+//     }
+
+// }
+
+function deleteBook(bookId) {
+    $.ajax({
+        url: `/api/books/${bookId}/`,
+        type: 'DELETE',
+        success: function(data) {
+            if (data.status === 'success') {
+                fetchBooks().then(function() {
+                    storeBooks();
+                    renderBooks(books);
+                });
+            } else {
+                alert('Error: ' + (data.message || 'Unknown error'));
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("An error occurred while deleting the book.");
         }
-
-    }
-    catch (error) {
-        console.error("Error deleting book:", error);
-        // alert("An error occurred while deleting the book.");
-        return;
-    }
-
+    });
 }
 
 function createActionButtons(bookDetails) {

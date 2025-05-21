@@ -46,8 +46,81 @@ if (bookId) {
 }
 
 
-async function addBook() {
+// async function addBook() {
 
+//     // Create book object with consistent field names
+//     let book = {
+//         name: nametext.value,
+//         author: authortext.value,
+//         year: 1925,
+//         genre: categorytext.value,
+//         cover: preview.src,
+//         description: desc.value,
+//         rating: 0,
+//         reviews: 0,
+//         language: "English",
+//         release_date: "1925-04-10",  // Changed to match backend
+//         is_available: true,          // Changed to match backend
+//         history: {}
+//     }
+//     // Validation (using correct variable name)
+//     if (!book.name || !book.author || !book.genre || !book.description) {
+//         alert('Please fill in all required fields');
+//         return;
+//     }
+    
+//     if (bookId > 0) {
+//         book.id = bookId;
+//         try {
+//             const response = await fetch(`/api/books/update/${bookId}/`, {
+//                 method: 'PUT',
+//                 headers: { // convert the data i send to json string
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(book)
+//             });
+
+//             const data = await response.json();
+
+//             if (response.ok && data.status === 'success') {
+//                 await fetchBooks();
+//                 storeBooks();
+//                 window.location.href = "/listAdmin";
+//             } else {
+//                 console.log('Error: ' + (data.message || 'Unknown error'));
+//             }
+//         } catch (error) {
+//             console.log('An error occurred while updating the book: ' + error.message);
+//         }
+//     } else if(bookId == 0) {
+//         try {
+//             const response = await fetch('/api/books/add/', {
+//                 method: 'POST',
+//                 headers: { // convert the data i send to json string
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(book)
+//             });
+
+//             const data = await response.json();
+
+//             if (response.ok && data.status === 'success') {
+//                 await fetchBooks();
+//                 storeBooks();
+//                 window.location.href = "/listAdmin";
+//             } else {
+//                 alert('Error: ' + (data.message || 'Unknown error'));
+//             }
+//         } catch (error) {
+//             alert('An error occurred while adding the book: ' + error.message);
+//         }
+//     }
+
+
+// }
+
+
+async function addBook() {
     // Create book object with consistent field names
     let book = {
         name: nametext.value,
@@ -59,11 +132,12 @@ async function addBook() {
         rating: 0,
         reviews: 0,
         language: "English",
-        release_date: "1925-04-10",  // Changed to match backend
-        is_available: true,          // Changed to match backend
+        release_date: "1925-04-10",  
+        is_available: true,          
         history: {}
-    }
-    // Validation (using correct variable name)
+    };
+    
+    // Validation 
     if (!book.name || !book.author || !book.genre || !book.description) {
         alert('Please fill in all required fields');
         return;
@@ -72,53 +146,54 @@ async function addBook() {
     if (bookId > 0) {
         book.id = bookId;
         try {
-            const response = await fetch(`/api/books/update/${bookId}/`, {
-                method: 'PUT',
-                headers: { // convert the data i send to json string
-                    'Content-Type': 'application/json',
+            $.ajax({
+                url: `/api/books/update/${bookId}/`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(book),
+                success: function(data) {
+                    if (data.status === 'success') {
+                        fetchBooks().then(function() {
+                            storeBooks();
+                            window.location.href = "/listAdmin";
+                        });
+                    } else {
+                        console.log('Error: ' + (data.message || 'Unknown error'));
+                    }
                 },
-                body: JSON.stringify(book)
+                error: function(xhr, status, error) {
+                    console.log('An error occurred while updating the book: ' + error);
+                }
             });
-
-            const data = await response.json();
-
-            if (response.ok && data.status === 'success') {
-                await fetchBooks();
-                storeBooks();
-                window.location.href = "/listAdmin";
-            } else {
-                console.log('Error: ' + (data.message || 'Unknown error'));
-            }
         } catch (error) {
             console.log('An error occurred while updating the book: ' + error.message);
         }
-    } else if(bookId == 0) {
+    } else if (bookId == 0) {
         try {
-            const response = await fetch('/api/books/add/', {
-                method: 'POST',
-                headers: { // convert the data i send to json string
-                    'Content-Type': 'application/json',
+            $.ajax({
+                url: '/api/books/add/',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(book),
+                success: function(data) {
+                    if (data.status === 'success') {
+                        fetchBooks().then(function() {
+                            storeBooks();
+                            window.location.href = "/listAdmin";
+                        });
+                    } else {
+                        alert('Error: ' + (data.message || 'Unknown error'));
+                    }
                 },
-                body: JSON.stringify(book)
+                error: function(xhr, status, error) {
+                    alert('An error occurred while adding the book: ' + error);
+                }
             });
-
-            const data = await response.json();
-
-            if (response.ok && data.status === 'success') {
-                await fetchBooks();
-                storeBooks();
-                window.location.href = "/listAdmin";
-            } else {
-                alert('Error: ' + (data.message || 'Unknown error'));
-            }
         } catch (error) {
             alert('An error occurred while adding the book: ' + error.message);
         }
     }
-
-
 }
-
 
 
 const authButtons = document.getElementById('auth-buttons');
