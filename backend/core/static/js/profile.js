@@ -99,8 +99,8 @@ if (user){
         });
     } else {
         authButtons ? authButtons.innerHTML = `
-                <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
-                <a href="../pages/login.html" class="signin-btn">Sign In</a>
+                <a href="signup/" class="signup-btn">Sign Up</a>
+                <a href="login/" class="signin-btn">Sign In</a>
             `: null;
     }
 }else{

@@ -25,9 +25,10 @@ form.addEventListener("submit", function (e) {
         .then(data => {
             if (data.status === "success") {
 				// loadUser()
-				fetch("/profilereq/").then(response => response.json()).then(data => {
+				let reader_id = data.reader_id
+				fetch("/profilereq/").then(response => response.json()).then(data2 => {
 					
-					localStorage.setItem("user",JSON.stringify(data))
+					localStorage.setItem("user",JSON.stringify(data2))
 					alert("✅ Login successful! Reader ID: " + data.reader_id);
 					window.location.href = "/profile/";
 				})
