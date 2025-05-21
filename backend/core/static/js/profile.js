@@ -1,111 +1,79 @@
-import { user, loadUser, books as allBooks, logout } from "../main.js";
-loadUser()
-if (user) {
+async function loadProfileAndBooks() {
+    try {
+        const [profileRes, booksRes] = await Promise.all([
+            fetch("/profilereq/"),
+            fetch("/api/books/")
+        ]);
 
-    // Profile Rendering
-    const profileHeader = document.querySelector('.profile-header');
+        const profile = await profileRes.json();
+        const booksRaw = await booksRes.json();
+        const books = JSON.parse(booksRaw.books);
 
-    const profilePic = document.createElement('img');
-    profilePic.src = "/static/images/profile.png";
-    profilePic.alt = 'Profile Picture';
-    profilePic.classList.add('profile-pic');
+        if (profile.status === "error") {
+            alert("Not logged in");
+            window.location = "/login";
+            return;
+        }
 
-    const profileInfo = document.createElement('div');
-    profileInfo.classList.add('profile-info');
+        // Clear existing profile header if exists
+        const profileHeader = document.querySelector('.profile-header');
+        profileHeader.innerHTML = ''; 
 
-    const userName = document.createElement('h2');
-    userName.textContent = `${user.first_name} ${user.last_name}`;
+        const profilePic = document.createElement('img');
+        profilePic.src = "/static/images/profile.png";
+        profilePic.alt = 'Profile Picture';
+        profilePic.classList.add('profile-pic');
 
-    const userEmail = document.createElement('p');
-    userEmail.textContent = user.email;
+        const profileInfo = document.createElement('div');
+        profileInfo.classList.add('profile-info');
 
-    const joinedSince = new Date(user.joined_date);
-    const formattedDate = joinedSince.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-    const userMemberSince = document.createElement('p');
-    userMemberSince.textContent = `Member since ${formattedDate}`;
+        const userName = document.createElement('h2');
+        userName.textContent = `${profile.first_name} ${profile.last_name}`;
 
-    profileInfo.append(userName, userEmail, userMemberSince);
-    profileHeader.append(profilePic, profileInfo);
+        const userEmail = document.createElement('p');
+        userEmail.textContent = profile.email;
 
-    // Book Rendering
-    const userBooksContainer = document.querySelector('.book-grid');
-    const filterSelect = document.querySelector('#filter');
-    const searchInput = document.querySelector('.search-input');
+        const joinedSince = new Date(profile.joined_date);
+        const formattedDate = joinedSince.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+        const userMemberSince = document.createElement('p');
+        userMemberSince.textContent = `Member since ${formattedDate}`;
 
-    // Helper: Render Books
-    function renderBooks(booksData) {
-        userBooksContainer.innerHTML = ''; // clear previous cards
+        const userRole = document.createElement('p');
+        userRole.textContent = `Role: ${profile.is_admin ? 'Admin' : 'User'}`;
 
-        booksData.forEach(({ bookId, returnDate, status }) => {
-            const book = allBooks.find(b => b.id === bookId);
-            if (!book) return;
+        profileInfo.append(userName, userEmail, userMemberSince, userRole);
+        profileHeader.append(profilePic, profileInfo);
 
+        // Render Borrowed Books
+        const container = document.querySelector('.book-grid');
+        container.innerHTML = ""; // Clear old book cards
+
+        profile.userBooks.forEach(entry => {
+            const bookObj = books.find(b => b.pk === entry.book_id);
+            if (!bookObj) return;
+
+            const book = bookObj.fields;
             const card = document.createElement('div');
             card.className = 'book-card';
 
             card.innerHTML = `
-            <div class="book-image">
-            <img src="${book.cover}" alt="${book.name} cover image">
-            </div>
-            <h3>${book.name}</h3>
-            <p>Due: ${returnDate}</p>
-            <p>Status: ${status}</p>
-            <a class="learn-more" href="./bookDetails.html?id=${book.id}">
-            ${status === 'pending' ? 'Renew' : status === 'overdue' ? 'Pay Fine' : 'Details'}
-            </a>
+                <div class="book-image">
+                    <img src="${book.cover}" alt="${book.name} cover">
+                </div>
+                <h3>${book.name}</h3>
+                <p>Due: ${entry.return_date}</p>
+                <p>Status: ${entry.status}</p>
+                <a href="/bookDetails/${entry.book_id}" class="learn-more">
+                    ${entry.status === 'pending' ? 'Renew' : entry.status === 'overdue' ? 'Pay Fine' : 'Details'}
+                </a>
             `;
-
-            userBooksContainer.appendChild(card);
-        });
-    }
-
-    // Filtering Logic
-    function filterBooks() {
-        const filterValue = filterSelect.value;
-        const searchValue = searchInput.value.toLowerCase();
-
-        const filtered = user.userBooks.filter(({ bookId, status }) => {
-            const book = allBooks.find(b => b.id === bookId);
-            if (!book) return false;
-
-            const matchesStatus = filterValue === 'all' || status === filterValue;
-            const matchesSearch = book.name.toLowerCase().includes(searchValue);
-            return matchesStatus && matchesSearch;
+            container.appendChild(card);
         });
 
-        renderBooks(filtered);
+    } catch (err) {
+        console.error("Error loading profile/books:", err);
+        alert("Something went wrong loading your profile.");
     }
-
-    // Initial Render
-    renderBooks(user.userBooks);
-
-    // Event Listeners
-    filterSelect.addEventListener('change', filterBooks);
-    searchInput.addEventListener('input', filterBooks);
-
-    // const signupbtn = document.querySelector('a.signup-btn');
-    // const signinbtn = document.querySelector('a.signin-btn');
-    // console.log(signinbtn);
-    // console.log(signupbtn);
-    // signinbtn.href = "../pages/login.html";
-    // signupbtn.href = "../pages/signup.html";
-
-    const authButtons = document.getElementById('auth-buttons');
-    console.log(authButtons);
-    if (user && authButtons) {
-        authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
-        document.getElementById('logoutBtn')?.addEventListener('click', () => {
-            logout(authButtons)
-        });
-    } else {
-        authButtons ? authButtons.innerHTML = `
-                <a href="signup/" class="signup-btn">Sign Up</a>
-                <a href="login/" class="signin-btn">Sign In</a>
-            `: null;
-    }
-} else {
-    alert("not logged in");
-    window.location = "/";
 }
 
-
+loadProfileAndBooks();
