@@ -210,6 +210,7 @@ def profilereq(request):
         'userBooks': borrowed_books,
         'id' : reader_id# ✅ Now available in frontend
     })
+
 @csrf_exempt
 def BorrowBook(request):
     if request.method == "POST":
@@ -219,7 +220,6 @@ def BorrowBook(request):
             book_id = data.get("book_id")
 
             # Create new ReaderBook entry
-            print(data)
             reader_book = ReaderBook.objects.create(
                 reader_id=user_id,
                 book_id=book_id,
@@ -236,6 +236,30 @@ def BorrowBook(request):
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid HTTP method"}, status=405)
+
+@csrf_exempt
+def UnborrowBook(request):
+    if request.method == 'DELETE':
+        try:
+            data = json.loads(request.body)
+            user_id = data.get("user_id")
+            book_id = data.get("book_id")
+
+            # Find the corresponding ReaderBook entry
+            reader_book = ReaderBook.objects.get(reader_id=user_id, book_id=book_id, is_returned=False)
+            reader_book.delete()
+
+            return JsonResponse({'status': 'success', 'message': 'Book unborrowed successfully'})
+        except ReaderBook.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Borrow record not found'}, status=404)
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid HTTP method'}, status=405)
+
+
     
 @csrf_exempt
 def logoutreq(request):

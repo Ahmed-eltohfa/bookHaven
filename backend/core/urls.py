@@ -24,7 +24,8 @@ urlpatterns = [
     path('api/books/add/', views.add_book, name='add_book'),
     path('api/books/<int:book_id>/', views.delete_book, name='delete_book'),
     path('api/books/update/<int:book_id>/', views.update_book, name='update_book'),
-    path('api/borrow/', views.BorrowBook, name="borrowBook")
+    path('api/borrow/', views.BorrowBook, name="borrowBook"),
+    path('api/unborrow/', views.UnborrowBook, name="unborrowBook")
 
     # path('api/books/update', views.update_book, name='update_book'),
 ]
