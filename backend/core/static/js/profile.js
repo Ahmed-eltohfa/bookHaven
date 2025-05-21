@@ -1,21 +1,21 @@
 import { user, loadUser, books as allBooks } from "../main.js";
 loadUser()
-if (user){
-	
+if (user) {
+
     // Profile Rendering
     const profileHeader = document.querySelector('.profile-header');
-    
+
     const profilePic = document.createElement('img');
     profilePic.src = user.profilePic;
     profilePic.alt = 'Profile Picture';
     profilePic.classList.add('profile-pic');
-    
+
     const profileInfo = document.createElement('div');
     profileInfo.classList.add('profile-info');
-    
+
     const userName = document.createElement('h2');
     userName.textContent = `${user.firstName} ${user.lastName}`;
-    
+
     const userEmail = document.createElement('p');
     userEmail.textContent = user.email;
 
@@ -35,14 +35,14 @@ if (user){
     // Helper: Render Books
     function renderBooks(booksData) {
         userBooksContainer.innerHTML = ''; // clear previous cards
-        
+
         booksData.forEach(({ bookId, returnDate, status }) => {
             const book = allBooks.find(b => b.id === bookId);
             if (!book) return;
-            
+
             const card = document.createElement('div');
             card.className = 'book-card';
-            
+
             card.innerHTML = `
             <div class="book-image">
             <img src="${book.cover}" alt="${book.name} cover image">
@@ -54,7 +54,7 @@ if (user){
             ${status === 'pending' ? 'Renew' : status === 'overdue' ? 'Pay Fine' : 'Details'}
             </a>
             `;
-            
+
             userBooksContainer.appendChild(card);
         });
     }
@@ -63,16 +63,16 @@ if (user){
     function filterBooks() {
         const filterValue = filterSelect.value;
         const searchValue = searchInput.value.toLowerCase();
-        
+
         const filtered = user.userBooks.filter(({ bookId, status }) => {
             const book = allBooks.find(b => b.id === bookId);
             if (!book) return false;
-            
+
             const matchesStatus = filterValue === 'all' || status === filterValue;
             const matchesSearch = book.name.toLowerCase().includes(searchValue);
             return matchesStatus && matchesSearch;
         });
-        
+
         renderBooks(filtered);
     }
 
@@ -100,7 +100,7 @@ if (user){
                     <a href="../pages/signup.html" class="signup-btn">Sign Up</a>
                     <a href="../pages/login.html" class="signin-btn">Sign In</a>
                 `: null;
-            window.location= "./login.html";
+            window.location = "./login.html";
         });
     } else {
         authButtons ? authButtons.innerHTML = `
@@ -108,7 +108,7 @@ if (user){
                 <a href="../pages/login.html" class="signin-btn">Sign In</a>
             `: null;
     }
-}else{
+} else {
     alert("not logged in");
     window.location = "/";
 }
