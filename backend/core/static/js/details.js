@@ -1,4 +1,4 @@
-import { books, storeBooks, storeUser, user, fetchBooks } from "../main.js";
+import { books, storeBooks, storeUser, user, fetchBooks, logout } from "../main.js";
 
 // Get the query string from the current URL
 const queryString = window.location.search;
@@ -188,12 +188,7 @@ const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        localStorage.removeItem('user');
-        authButtons ? authButtons.innerHTML = `
-                    <a href="../../signup" class="signup-btn">Sign Up</a>
-                    <a href="../../login" class="signin-btn">Sign In</a>
-                `: null;
-        window.location = "./login.html";
+        logout(authButtons)
     });
 } else {
     authButtons ? authButtons.innerHTML = `
