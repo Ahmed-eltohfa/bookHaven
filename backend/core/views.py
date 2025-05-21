@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404
 from .models import Book 
@@ -206,8 +207,35 @@ def profilereq(request):
         'joined_date': reader.joined_date.strftime('%Y-%m-%d'),
         'profile_pic': reader.profile_pic.url,
         'is_admin': reader.is_admin,
-        'userBooks': borrowed_books,  # ✅ Now available in frontend
+        'userBooks': borrowed_books,
+        'id' : reader_id# ✅ Now available in frontend
     })
+@csrf_exempt
+def BorrowBook(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            user_id = data.get("user_id")
+            book_id = data.get("book_id")
+
+            # Create new ReaderBook entry
+            print(data)
+            reader_book = ReaderBook.objects.create(
+                reader_id=user_id,
+                book_id=book_id,
+                return_date=date.today() + timedelta(days=14),  # example: 2 weeks later
+                is_returned=False,
+                status="borrowed"
+            )
+
+            return JsonResponse({"message": "Book borrowed successfully", "id": reader_book.id}, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Invalid HTTP method"}, status=405)
     
 @csrf_exempt
 def logoutreq(request):
