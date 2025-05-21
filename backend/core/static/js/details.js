@@ -157,8 +157,8 @@ if (user && authButtons) {
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
         localStorage.removeItem('user');
         authButtons ? authButtons.innerHTML = `
-                    <a href="../signup" class="signup-btn">Sign Up</a>
-                    <a href="../login" class="signin-btn">Sign In</a>
+                    <a href="../../signup" class="signup-btn">Sign Up</a>
+                    <a href="../../login" class="signin-btn">Sign In</a>
                 `: null;
         window.location = "./login.html";
     });
