@@ -1,7 +1,5 @@
 // login.js
-import { users, loadUser, storeUser, checkPassword } from "../main.js";
-
-loadUser();
+import { user, loadUser, storeUser, checkPassword } from "../main.js";
 
 const form = document.querySelector("form");
 const emailInput = document.getElementById("email");
@@ -26,10 +24,13 @@ form.addEventListener("submit", function (e) {
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
-				loadUser()
-                alert("✅ Login successful! Reader ID: " + data.reader_id);
-				localStorage.setItem("currentuser",data.reader_id)
-				window.location.href = "/profile/";
+				// loadUser()
+				fetch("/profilereq/").then(response => response.json()).then(data => {
+					
+					localStorage.setItem("user",JSON.stringify(data))
+					alert("✅ Login successful! Reader ID: " + data.reader_id);
+					window.location.href = "/profile/";
+				})
                 // Optionally redirect:
                 // window.location.href = "/profile/";
             } else {

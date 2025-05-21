@@ -638,7 +638,7 @@ function storeBooks() {
 function loadUser() {
 	user = JSON.parse(localStorage.getItem("user"));
 	if (user === null) {
-		LoadTestUser();
+		// LoadTestUser();
 		// fetchUser();
 		storeUser(user);
 		fetch(`/profilereq/`)
@@ -682,7 +682,7 @@ function storeUser(userData) {
 // }
 
 loadBooks();
-loadUser();
+// loadUser();
 // loadUsers();
 
 
@@ -721,23 +721,23 @@ export async function checkPassword(plainPassword, storedHash) {
 
 function logout(authButtons) {
 	localStorage.removeItem('user');
-        authButtons ? authButtons.innerHTML = `
-		<a href="signup" class="signup-btn">Sign Up</a>
-		<a href="login" class="signin-btn">Sign In</a>
-		`: null;
-		fetch('/logoutreq/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					}
-				})
-				.then(res => res.json())
-				.then(data => {
-					if (data.status === 'success') {
-						window.location.href = "/"
-					}
-				});
+	authButtons ? authButtons.innerHTML = `
+	<a href="signup" class="signup-btn">Sign Up</a>
+	<a href="login" class="signin-btn">Sign In</a>
+	`: null;
+	// fetch('/logoutreq/', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-Type': 'application/json',
+	// 			}
+	// 		})
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			if (data.status === 'success') {
+	// 				window.location.href = "/"
+	// 			}
+	// 		});
 }
 
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser, storeUsers, loadUsers, users,fetchBooks,logout };
+export { books, user, storeBooks, loadBooks, storeUser, loadUser,fetchBooks,logout };

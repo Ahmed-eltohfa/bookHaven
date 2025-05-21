@@ -6,7 +6,7 @@ if (user){
     const profileHeader = document.querySelector('.profile-header');
     
     const profilePic = document.createElement('img');
-    profilePic.src = user.profilePic;
+    profilePic.src = "/static/images/profile.png";
     profilePic.alt = 'Profile Picture';
     profilePic.classList.add('profile-pic');
     
@@ -14,12 +14,12 @@ if (user){
     profileInfo.classList.add('profile-info');
     
     const userName = document.createElement('h2');
-    userName.textContent = `${user.firstName} ${user.lastName}`;
+    userName.textContent = `${user.first_name} ${user.last_name}`;
     
     const userEmail = document.createElement('p');
     userEmail.textContent = user.email;
 
-    const joinedSince = new Date(user.joinedSince);
+    const joinedSince = new Date(user.joined_date);
     const formattedDate = joinedSince.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
     const userMemberSince = document.createElement('p');
     userMemberSince.textContent = `Member since ${formattedDate}`;

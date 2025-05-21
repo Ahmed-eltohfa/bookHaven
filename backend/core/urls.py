@@ -12,8 +12,8 @@ urlpatterns = [
     # User auth
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('profile/', views.profile_page, name='profile'),
-    path('profilereq/', views.profile, name='profilereq'),
+    path('profile/', views.profile, name='profile'),
+    path('profilereq/', views.profilereq, name='profilereq'),
     path('logoutreq/', views.logoutreq, name='logout'),
 
     # Book management

@@ -20,7 +20,7 @@ def listAdmin(request):
     return render(request, 'listAdmin.html')
 def login(request):
     return render(request, 'login.html')
-def profile_page(request):
+def profile(request):
     return render(request, 'profile.html')
 def search(request):
     return render(request, 'search.html')
@@ -186,7 +186,8 @@ def login(request):
 #     if not reader_id:
 #         return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
 
-def profile(request):
+@csrf_exempt
+def profilereq(request):
     reader_id = request.session.get('reader_id')
     if not reader_id:
         return JsonResponse({'status': 'error', 'message': 'Not logged in'}, status=401)
