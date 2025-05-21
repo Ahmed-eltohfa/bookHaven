@@ -29,7 +29,7 @@ form.addEventListener("submit", function (e) {
 						dataType: "json",
 						success: function(data2) {
 							localStorage.setItem("user", JSON.stringify(data2));
-							alert("✅ Login successful! Reader ID: " + reader_id);
+							// alert("✅ Login successful! Reader ID: " + reader_id);
 							window.location.href = "/profile/";
 						},
 						error: function(xhr, status, error) {

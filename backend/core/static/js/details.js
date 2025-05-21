@@ -72,12 +72,7 @@ if (book && container) {
         borrowBtn.style.cursor = "not-allowed";
     };
 
-    const wishlistBtn = document.createElement("button");
-    wishlistBtn.className = "btn secondary";
-    wishlistBtn.textContent = "Add to Wishlist";
-
     buttonsDiv.appendChild(borrowBtn);
-    buttonsDiv.appendChild(wishlistBtn);
 
     // Append all info
     infoDiv.appendChild(title);

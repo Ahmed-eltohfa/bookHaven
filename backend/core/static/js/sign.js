@@ -58,7 +58,8 @@ if (fileInput && fileInput.files && fileInput.files[0]) {
 			success: function(data) {
 				const responseDiv = $("#response");
 				if (data.status === "success") {
-					responseDiv.text("✅ Account created successfully! ID: " + data.reader_id).css("color", "green");
+					responseDiv.text("✅ Account created successfully!").css("color", "green");
+					window.location.href = "/login/"
 				} else {
 					responseDiv.text("❌ " + data.message).css("color", "red");
 				}
@@ -84,9 +85,10 @@ if (fileInput && fileInput.files && fileInput.files[0]) {
 					role: role
 				}),
 				success: function(data) {
-					const responseDiv = $("#response");
+				const responseDiv = $("#response");
 					if (data.status === "success") {
-						responseDiv.text("✅ Account created successfully! ID: " + data.reader_id).css("color", "green");
+						responseDiv.text("✅ Account created successfully!").css("color", "green");
+						window.location.href = "/login/"
 					} else {
 						responseDiv.text("❌ " + data.message).css("color", "red");
 					}
