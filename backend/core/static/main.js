@@ -638,6 +638,22 @@ function storeBooks() {
 	localStorage.setItem("bookslist", JSON.stringify(books))
 }
 
+function fetchUser(){
+	return $.ajax({
+		url: "/profilereq/",
+		method: "GET",
+		dataType: "json",
+		success: function(data2) {
+			storeUser(data2);
+			return true;
+		},
+		error: function(xhr, status, error) {
+			alert("❌ Error fetching profile: " + error);
+			return false;
+		}
+	});
+}
+
 function loadUser() {
 	user = JSON.parse(localStorage.getItem("user"));
 	storeUser(user);
@@ -718,4 +734,4 @@ function logout(authButtons) {
 }
 
 // exports
-export { books, user, storeBooks, loadBooks, storeUser, loadUser,fetchBooks,logout };
+export { books, user, storeBooks, loadBooks, storeUser, loadUser,fetchBooks,logout,fetchUser };

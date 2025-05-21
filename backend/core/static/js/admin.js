@@ -40,6 +40,7 @@ function deleteBook(bookId) {
             if (data.status === 'success') {
                 fetchBooks().then(function() {
                     storeBooks();
+					fetchUser();
                     renderBooks(books);
                 });
             } else {

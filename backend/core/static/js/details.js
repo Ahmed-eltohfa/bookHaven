@@ -1,4 +1,4 @@
-import { books, storeBooks, storeUser, user, fetchBooks, logout } from "../main.js";
+import { books, storeBooks, storeUser, user, fetchBooks, logout, fetchUser } from "../main.js";
 
 // Get the query string from the current URL
 const queryString = window.location.search;
@@ -55,24 +55,18 @@ if (book && container) {
     const buttonsDiv = document.createElement("div");
     buttonsDiv.className = "buttons";
 
-    const borrowBtn = document.createElement("button");
-    borrowBtn.className = "btn primary";
-    borrowBtn.textContent = "Borrow";
-    if (!book.isAvailable) {
-        borrowBtn.disabled = true;
-        borrowBtn.textContent = "Not Available";
-        borrowBtn.style.backgroundColor = "rgb(150, 150, 150)";
-        borrowBtn.style.cursor = "not-allowed";
-    }
-    borrowBtn.onclick = () => {
-        borrowBook(book.id);
-        borrowBtn.disabled = true;
-        borrowBtn.textContent = "Not Available";
-        borrowBtn.style.backgroundColor = "rgb(150, 150, 150)";
-        borrowBtn.style.cursor = "not-allowed";
-    };
+    const hasUserBorrowed = user.userBooks.some(rb => rb.book_id === book.id);
 
-    buttonsDiv.appendChild(borrowBtn);
+	let button;
+	if (hasUserBorrowed) {
+		button = createUnborrowButton(book);
+	} else if (!book.isAvailable) {
+		button = createUnavailableButton();
+	} else {
+		button = createBorrowButton(book);
+	}
+
+	buttonsDiv.appendChild(button);
 
     // Append all info
     infoDiv.appendChild(title);
@@ -104,6 +98,7 @@ if (book && container) {
 						if (data.status === 'success') {
 							fetchBooks().then(function() {
 								storeBooks();
+								fetchUser();
 								window.location.href = "/search/"
 							});
 						} else {
@@ -183,31 +178,33 @@ function formatDate(dateStr) {
 // }
 
 function borrowBook(bookId) {
-    const book = books.find(b => b.id === bookId);
-    book.is_available = false;
-
-    $.ajax({
-        url: `/api/books/update/${bookId}/`,
+	const book = books.find(b => b.id === bookId);
+	
+	book.is_available = false;
+    return $.ajax({
+		url: `/api/books/update/${bookId}/`,
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(book)
     })
     .then(function(data) {
-        if (data.status !== 'success') throw new Error(data.message || 'Update failed');
+		if (data.status !== 'success') throw new Error(data.message || 'Update failed');
         return $.ajax({
-            url: '/api/borrow/',
+			url: '/api/borrow/',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                user_id: user.id,
+				user_id: user.id,
                 book_id: bookId
             })
         });
     })
     .then(function(borrowData) {
-        if (borrowData.message !== 'Book borrowed successfully') {
-            throw new Error(borrowData.error || 'Borrow failed');
+		if (borrowData.message !== 'Book borrowed successfully') {
+			throw new Error(borrowData.error || 'Borrow failed');
         }
+		fetchUser();
+		// user.userBooks.push({ book_id: bookId, status: 'borrowed' });
         return fetchBooks();
     })
     .then(function() {
@@ -218,6 +215,93 @@ function borrowBook(bookId) {
         console.error('Error:', error.message);
     });
 }
+
+function unborrowBook(bookId) {
+    const book = books.find(b => b.id === bookId);
+	
+	book.is_available = true;
+    return $.ajax({
+		url: `/api/books/update/${bookId}/`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(book)
+    })
+    .then(() => {
+		return $.ajax({
+			url: '/api/unborrow/',
+            type: 'DELETE',
+            contentType: 'application/json',
+            data: JSON.stringify({
+				user_id: user.id,
+                book_id: bookId
+            })
+        });
+    })
+    .then((res) => {
+		if (res.status !== 'success') throw new Error(res.message || 'Unborrow failed');
+		// user.userBooks = user.userBooks.filter(b => b.id !== bookId);
+		fetchUser();
+        return fetchBooks();
+    })
+    .then(() => {
+        storeBooks();
+    })
+    .catch((error) => {
+        console.error('Unborrow Error:', error.message);
+    });
+}
+
+
+function createBorrowButton(book) {
+	const button = document.createElement("button");
+	button.className = "btn primary";
+	button.textContent = "Borrow";
+
+	button.onclick = () => {
+		borrowBook(book.id).then(() => {
+			// Replace with Unborrow button after borrowing
+			const newBtn = createUnborrowButton(book);
+			button.replaceWith(newBtn);
+		});
+		button.disabled = true;
+		button.textContent = "Not Available";
+		button.style.backgroundColor = "rgb(150, 150, 150)";
+		button.style.cursor = "not-allowed";
+	};
+
+	return button;
+}
+
+function createUnborrowButton(book) {
+	const button = document.createElement("button");
+	button.className = "btn gray";
+	button.textContent = "Unborrow";
+
+	button.onclick = () => {
+		unborrowBook(book.id).then(() => {
+			// Replace with Borrow button after unborrowing
+			const newBtn = createBorrowButton(book);
+			button.replaceWith(newBtn);
+		});
+		button.disabled = true;
+		button.textContent = "Borrow";
+		button.style.backgroundColor = "rgb(10,10,10)";
+		button.style.cursor = "pointer";
+	};
+
+	return button;
+}
+
+function createUnavailableButton() {
+	const button = document.createElement("button");
+	button.className = "btn primary";
+	button.textContent = "Not Available";
+	button.disabled = true;
+	button.style.backgroundColor = "rgb(150, 150, 150)";
+	button.style.cursor = "not-allowed";
+	return button;
+}
+
 
 const authButtons = document.getElementById('auth-buttons');
 

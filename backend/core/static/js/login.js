@@ -1,5 +1,5 @@
 // login.js
-import { user, loadUser, storeUser, checkPassword } from "../main.js";
+import { user, loadUser, storeUser, checkPassword, fetchUser} from "../main.js";
 
 const form = document.querySelector("form");
 const emailInput = document.getElementById("email");
@@ -23,17 +23,9 @@ form.addEventListener("submit", function (e) {
 				if (data.status === "success") {
 					let reader_id = data.reader_id;
 
-					$.ajax({
-						url: "/profilereq/",
-						method: "GET",
-						dataType: "json",
-						success: function(data2) {
-							localStorage.setItem("user", JSON.stringify(data2));
-							// alert("✅ Login successful! Reader ID: " + reader_id);
+					fetchUser().then(status => {
+						if(status){
 							window.location.href = "/profile/";
-						},
-						error: function(xhr, status, error) {
-							alert("❌ Error fetching profile: " + error);
 						}
 					});
 				} else {
