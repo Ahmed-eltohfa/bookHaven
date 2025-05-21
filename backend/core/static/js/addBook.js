@@ -42,9 +42,7 @@ if (bookId) {
         desc.value = book.description;
         preview.src = book.cover;
         preview.style.display = "block";
-    } else {
-        alert('Book not found');
-    }
+    }  
 }
 
 
@@ -70,8 +68,8 @@ async function addBook() {
         alert('Please fill in all required fields');
         return;
     }
-
-    if (bookId) {
+    
+    if (bookId > 0) {
         book.id = bookId;
         try {
             const response = await fetch(`/api/books/update/${bookId}/`, {
@@ -94,7 +92,7 @@ async function addBook() {
         } catch (error) {
             console.log('An error occurred while updating the book: ' + error.message);
         }
-    } else {
+    } else if(bookId == 0) {
         try {
             const response = await fetch('/api/books/add/', {
                 method: 'POST',
@@ -117,6 +115,8 @@ async function addBook() {
             alert('An error occurred while adding the book: ' + error.message);
         }
     }
+
+
 }
 
 
@@ -130,7 +130,7 @@ if (user && authButtons) {
                     <a href="../../signup" class="signup-btn">Sign Up</a>
                     <a href="../../login" class="signin-btn">Sign In</a>
                 `: null;
-        window.location = "../../login.html";
+        window.location = "../../login";
     });
 } else {
     authButtons ? authButtons.innerHTML = `
