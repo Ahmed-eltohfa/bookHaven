@@ -1,4 +1,4 @@
-import { books, loadUser, storeBooks, user, fetchBooks, logout } from "../main.js";
+import { books, loadUser, storeBooks, user, fetchBooks, logout,fetchUser } from "../main.js";
 
 const inputSearch = document.getElementById("search");
 const container = document.querySelector(".library-table tbody");
