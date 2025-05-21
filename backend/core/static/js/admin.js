@@ -60,7 +60,7 @@ function createActionButtons(bookDetails) {
         actionsTd.innerHTML = "";
 
         const editLink = document.createElement("a");
-        editLink.href = `addBook/${bookDetails.id}`;
+        editLink.href = `/addBook/${bookDetails.id}`;
         const editBtn = document.createElement("button");
         editBtn.className = "btn blue";
         editBtn.textContent = "Edit";
@@ -180,10 +180,7 @@ const authButtons = document.getElementById('auth-buttons');
 if (user && authButtons) {
     authButtons.innerHTML = `<button class="logout-btn" id="logoutBtn">Logout</button>`;
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        logout(authButtons);
-
-
-		
+        logout(authButtons);		
     });
 } else {
     authButtons ? authButtons.innerHTML = `

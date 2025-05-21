@@ -86,8 +86,19 @@ if (book && container) {
     infoDiv.appendChild(language);
     infoDiv.appendChild(release);
     infoDiv.appendChild(desc);
-    infoDiv.appendChild(buttonsDiv);
-
+	
+	if (user && user.is_admin) {
+		const editBtn = document.createElement("button");
+		editBtn.className = "btn warning"; // Use a different style class if desired
+		editBtn.textContent = "Edit Book";
+		editBtn.onclick = () => {
+			window.location.href = `/addBook/${book.id}`; // Define this function to handle editing
+		};
+		buttonsDiv.appendChild(editBtn);
+	}
+    
+	infoDiv.appendChild(buttonsDiv);
+	
     // Append to container
     container.appendChild(imageDiv);
     container.appendChild(infoDiv);

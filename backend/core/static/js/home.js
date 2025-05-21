@@ -1,6 +1,10 @@
-import { user, books ,logout} from "../main.js";
+import { user, books ,logout, fetchBooks, loadBooks} from "../main.js";
 
-const booksToDisplay = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
+
+loadBooks().then(() => {displayBooks()})
+
+function displayBooks(){
+	const booksToDisplay = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
 const recommendedBooks = books.filter((book) => book.history.borrowed + book.history.wishlisted > 500);
 
 
@@ -108,4 +112,5 @@ if (user && authButtons) {
             <a href="signup" class="signup-btn">Sign Up</a>
             <a href="login" class="signin-btn">Sign In</a>
         `: null;
+}
 }

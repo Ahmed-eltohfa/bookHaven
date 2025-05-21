@@ -543,21 +543,14 @@ let books = []
 
 let fetchBooks = async function () {
 	try {
-		const response = await $.ajax({
-    url: '/api/books/',
-    method: 'GET',
-    dataType: 'json'
-	});
+		const data = await $.ajax({
+			url: '/api/books/',
+			method: 'GET',
+			dataType: 'json'
+		});
 
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-
-		const data = await response.json();
 		const bookData = JSON.parse(data.books);
 
-		// console.log('Fetched books:', bookData);
 		books = bookData.map(book => ({
 			id: book.pk,
 			name: book.fields.name,
@@ -573,21 +566,17 @@ let fetchBooks = async function () {
 			isAvailable: book.fields.is_available,
 			language: book.fields.language,
 		}));
+
 		books.sort((a, b) => a.id - b.id);
 		storeBooks();
-		// console.log('Processed books:', books);
-
-
 
 	} catch (error) {
 		console.error('Failed to fetch books:', error);
-		// Optional: Show error to user
 		document.getElementById('books-container').innerHTML = `
-            <p class="error">Failed to load books. Please try again.</p>
-        `;
+			<p class="error">Failed to load books. Please try again.</p>
+		`;
 	}
 };
-
 
 
 
